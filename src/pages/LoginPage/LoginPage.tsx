@@ -56,7 +56,7 @@ const LoginPage = () => {
           <Form {...form}>
             <form
               onSubmit={form.handleSubmit(onSubmit)}
-              className="space-y-8 w-96"
+              className="space-y-8 w-1/4"
             >
               <FormField
                 control={form.control}
@@ -102,9 +102,19 @@ const LoginPage = () => {
                       htmlFor="terms1"
                       className="text-gray-400 text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                     >
-                      Accept terms and conditions
+                      Remember me
                     </label>
                   </div>
+                </div>
+              </div>
+              <div className="flex justify-between">
+                <div className="flex items-center">
+                  <p className="text-gray-400 text-sm font-medium">
+                    Don't have an account?{" "}
+                    <Link to="/register" className="text-colour-indigo text-sm font-medium">
+                      Sign up
+                    </Link>
+                  </p>
                 </div>
                 <div className="flex items-center">
                   <Link
