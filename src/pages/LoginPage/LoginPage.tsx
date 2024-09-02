@@ -1,4 +1,4 @@
-import Logo from "@/components/custom/logo";
+import Logo from "@/components/custom/Logo";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
