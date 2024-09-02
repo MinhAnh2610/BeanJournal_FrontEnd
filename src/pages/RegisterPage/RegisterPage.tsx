@@ -13,7 +13,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { z } from "zod";
-import logo from "../../assets/beanjournallogo.svg";
+import Logo from "@/components/custom/logo";
 
 const formSchema = z.object({
   userName: z.string(),
@@ -38,16 +38,7 @@ const RegisterPage = () => {
   }
   return (
     <div className="space-y-16">
-      <div className="flex justify-center items-center">
-        <img
-          src={logo}
-          alt="Bean Journal Logo"
-          width={30}
-          height={30}
-          className="mr-4"
-        />
-        <h1 className="text-lg">Bean Journal</h1>
-      </div>
+      <Logo/>
       <div>
         <div className="my-16 text-center">
           <h1 className="text-3xl">Take the first step</h1>
@@ -71,7 +62,7 @@ const RegisterPage = () => {
                       <Input placeholder="Enter your email" {...field} />
                     </FormControl>
                     <FormDescription>
-                      This is your email address name.
+                      This is your email address.
                     </FormDescription>
                     <FormMessage />
                   </FormItem>

@@ -1,9 +1,9 @@
+import Logo from "@/components/custom/logo";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -14,7 +14,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { z } from "zod";
-import logo from "../../assets/beanjournallogo.svg";
 
 const formSchema = z.object({
   email: z.string().email(),
@@ -35,16 +34,7 @@ const LoginPage = () => {
   }
   return (
     <div className="space-y-36">
-      <div className="flex justify-center items-center">
-        <img
-          src={logo}
-          alt="Bean Journal Logo"
-          width={30}
-          height={30}
-          className="mr-4"
-        />
-        <h1 className="text-lg">Bean Journal</h1>
-      </div>
+      <Logo/>
       <div>
         <div className="my-16 text-center">
           <h1 className="text-3xl">Write down your journey under document</h1>
@@ -67,9 +57,6 @@ const LoginPage = () => {
                     <FormControl>
                       <Input placeholder="Enter your email" {...field} />
                     </FormControl>
-                    <FormDescription>
-                      This is your public display name.
-                    </FormDescription>
                     <FormMessage />
                   </FormItem>
                 )}
@@ -87,9 +74,6 @@ const LoginPage = () => {
                         {...field}
                       />
                     </FormControl>
-                    <FormDescription>
-                      This is your public display name.
-                    </FormDescription>
                     <FormMessage />
                   </FormItem>
                 )}
