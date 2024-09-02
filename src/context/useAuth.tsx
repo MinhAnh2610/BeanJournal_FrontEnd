@@ -9,6 +9,7 @@ import axios from "axios";
 type UserContextType = {
   user: UserProfile | null;
   token: string | null;
+  refreshToken: string | null;
   registerUser: (
     email: string,
     username: string,
@@ -27,6 +28,7 @@ const UserContext = createContext<UserContextType>({} as UserContextType);
 export const UserProvider = ({ children }: Props) => {
   const navigate = useNavigate();
   const [token, setToken] = useState<string | null>(null);
+  const [refreshToken, setRefreshToken] = useState<string | null>(null);
   const [user, setUser] = useState<UserProfile | null>(null);
   const [isReady, setIsReady] = useState(false);
 
@@ -51,15 +53,17 @@ export const UserProvider = ({ children }: Props) => {
       .then((res: any) => {
         if (res) {
           localStorage.setItem("token", res?.data.token);
+          localStorage.setItem("refreshToken", res?.data.refreshToken);
           const userObj = {
             userName: res?.data.userName,
             email: res?.data.email,
           };
           localStorage.setItem("user", JSON.stringify(userObj));
           setToken(res?.data.token!);
+          setRefreshToken(res?.data.refreshToken!);
           setUser(userObj!);
           toast.success("Login Success!");
-          navigate("/search");
+          navigate("/dashboard");
         }
       })
       .catch(() => toast.warning("Server error occurred"));
@@ -70,15 +74,17 @@ export const UserProvider = ({ children }: Props) => {
       .then((res: any) => {
         if (res) {
           localStorage.setItem("token", res?.data.token);
+          localStorage.setItem("refreshToken", res?.data.refreshToken);
           const userObj = {
             userName: res?.data.userName,
             email: res?.data.email,
           };
           localStorage.setItem("user", JSON.stringify(userObj));
           setToken(res?.data.token!);
+          setRefreshToken(res?.data.refreshToken!);
           setUser(userObj!);
           toast.success("Login Success!");
-          navigate("/search");
+          navigate("/dashboard");
         }
       })
       .catch(() => toast.warning("Server error occurred"));
@@ -93,12 +99,21 @@ export const UserProvider = ({ children }: Props) => {
     localStorage.removeItem("user");
     setUser(null);
     setToken("");
+    setRefreshToken("");
     navigate("/");
   };
 
   return (
     <UserContext.Provider
-      value={{ loginUser, user, token, logout, isLoggedIn, registerUser }}
+      value={{
+        loginUser,
+        user,
+        token,
+        refreshToken,
+        logout,
+        isLoggedIn,
+        registerUser,
+      }}
     >
       {isReady ? children : null}
     </UserContext.Provider>
