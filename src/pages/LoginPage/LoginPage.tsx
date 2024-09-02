@@ -10,6 +10,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { useAuth } from "@/context/useAuth";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
@@ -21,6 +22,8 @@ const formSchema = z.object({
 });
 
 const LoginPage = () => {
+  const { loginUser } = useAuth();
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -30,11 +33,11 @@ const LoginPage = () => {
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
+    loginUser(values.email, values.password);
   }
   return (
     <div className="space-y-36">
-      <Logo/>
+      <Logo />
       <div>
         <div className="my-16 text-center">
           <h1 className="text-3xl">Write down your journey under document</h1>
@@ -95,7 +98,10 @@ const LoginPage = () => {
                 <div className="flex items-center">
                   <p className="text-gray-400 text-sm font-medium">
                     Don't have an account?{" "}
-                    <Link to="/register" className="text-colour-indigo text-sm font-medium">
+                    <Link
+                      to="/register"
+                      className="text-colour-indigo text-sm font-medium"
+                    >
                       Sign up
                     </Link>
                   </p>

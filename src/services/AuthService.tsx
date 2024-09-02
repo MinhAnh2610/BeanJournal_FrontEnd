@@ -2,7 +2,7 @@ import { handleError } from "@/helpers/ErrorHandler";
 import { UserProfileToken } from "@/models/User";
 import axios from "axios";
 
-const api = "http://beanjournal.azurewebsites.net/api/account/";
+const api = "https://beanjournal.azurewebsites.net/api/account/";
 
 export const loginAPI = async (email: string, password: string) => {
   try {
@@ -10,6 +10,7 @@ export const loginAPI = async (email: string, password: string) => {
       email,
       password,
     });
+    console.log(data);
     return data;
   } catch (error) {
     handleError(error);
@@ -29,6 +30,7 @@ export const registerAPI = async (
       password,
       confirmPassword,
     });
+    console.log(data);
     return data;
   } catch (error) {
     handleError(error);
