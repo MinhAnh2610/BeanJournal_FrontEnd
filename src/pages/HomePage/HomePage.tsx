@@ -10,8 +10,8 @@ import Logo from "@/components/custom/Logo";
 
 const HomePage = () => {
   return (
-    <div className="h-screen w-screen">
-      <Navbar shouldHideOnScroll>
+    <div className="h-full w-screen">
+      <Navbar shouldHideOnScroll className="items">
         <NavbarBrand>
           <Logo />
         </NavbarBrand>

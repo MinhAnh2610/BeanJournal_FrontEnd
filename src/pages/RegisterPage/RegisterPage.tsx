@@ -14,10 +14,10 @@ import { z } from "zod";
 import Logo from "@/components/custom/Logo";
 
 const formSchema = z.object({
-  userName: z.string(),
-  email: z.string().email(),
-  password: z.string(),
-  confirmPassword: z.string(),
+  userName: z.string().nonempty(),
+  email: z.string().email().nonempty(),
+  password: z.string().nonempty(),
+  confirmPassword: z.string().nonempty(),
 });
 
 const RegisterPage = () => {
@@ -35,8 +35,8 @@ const RegisterPage = () => {
     console.log(values);
   }
   return (
-    <div className="h-screen w-screen p-4 lg:space-y-12 lg:p-16">
-      <Logo/>
+    <div className="h-full w-screen p-4 lg:space-y-12 lg:p-16">
+      <Logo />
       <div>
         <div className="my-10 text-center lg:my-16">
           <h1 className="text-3xl">Take the first step</h1>
@@ -57,7 +57,11 @@ const RegisterPage = () => {
                   <FormItem>
                     <FormLabel>Email</FormLabel>
                     <FormControl>
-                      <Input type="email" label="Enter your email..." {...field} />
+                      <Input
+                        type="email"
+                        label="Enter your email..."
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -70,7 +74,11 @@ const RegisterPage = () => {
                   <FormItem>
                     <FormLabel>Username</FormLabel>
                     <FormControl>
-                      <Input type="text" label="Enter your username..." {...field} />
+                      <Input
+                        type="text"
+                        label="Enter your username..."
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -110,7 +118,7 @@ const RegisterPage = () => {
                   </FormItem>
                 )}
               />
-              <div className="flex justify-between">
+              <div className="flex justify-start lg:justify-between">
                 <div className="flex items-center">
                   <p className="text-gray-400 text-sm font-medium">
                     Already have an account?
@@ -119,9 +127,9 @@ const RegisterPage = () => {
                 <div className="flex items-center">
                   <Link
                     to="/login"
-                    className="text-colour-indigo text-sm font-medium"
+                    className="text-colour-indigo text-sm font-medium ml-1 lg:ml-0"
                   >
-                    Sign in
+                    Login
                   </Link>
                 </div>
               </div>

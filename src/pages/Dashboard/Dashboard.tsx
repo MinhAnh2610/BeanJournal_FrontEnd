@@ -5,7 +5,7 @@ import { Search, Settings } from "lucide-react";
 
 const Dashboard = () => {
   return (
-    <div className="h-screen w-screen flex">
+    <div className="h-full w-screen flex">
       <div className="">
         <Sidebar>
           <SidebarItem

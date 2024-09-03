@@ -16,7 +16,7 @@ import { z } from "zod";
 import key from "../../assets/key.svg";
 
 const formSchema = z.object({
-  email: z.string().email(),
+  email: z.string().email().nonempty(),
 });
 
 const ForgotPasswordPage = () => {
@@ -32,7 +32,7 @@ const ForgotPasswordPage = () => {
   }
 
   return (
-    <div className="h-screen w-screen space-y-20 p-4 lg:p-16">
+    <div className="h-full w-screen space-y-20 p-4 lg:p-16">
       <Logo />
       <div className="flex justify-center">
         <img src={key} alt="key" />

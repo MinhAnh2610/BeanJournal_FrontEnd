@@ -14,8 +14,8 @@ import { z } from "zod";
 import key from "../../assets/key.svg";
 
 const formSchema = z.object({
-  password: z.string(),
-  confirmPassword: z.string(),
+  password: z.string().nonempty(),
+  confirmPassword: z.string().nonempty(),
 });
 
 const ResetPasswordPage = () => {
@@ -32,7 +32,7 @@ const ResetPasswordPage = () => {
   }
 
   return (
-    <div className="h-screen w-screen space-y-20 p-4 lg:p-16">
+    <div className="h-full w-screen space-y-20 p-4 lg:p-16">
       <Logo />
       <div className="flex justify-center">
         <img src={key} alt="key" />

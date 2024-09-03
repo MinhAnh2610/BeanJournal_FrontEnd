@@ -15,8 +15,8 @@ import { Link } from "react-router-dom";
 import { z } from "zod";
 
 const formSchema = z.object({
-  email: z.string().email(),
-  password: z.string(),
+  email: z.string().email().nonempty(),
+  password: z.string().nonempty(),
 });
 
 const LoginPage = () => {
@@ -34,7 +34,7 @@ const LoginPage = () => {
     loginUser(values.email, values.password);
   }
   return (
-    <div className="h-screen w-screen p-4 space-y-24 lg:space-y-36 lg:p-16">
+    <div className="h-full w-screen p-4 space-y-24 lg:space-y-36 lg:p-16">
       <Logo />
       <div>
         <div className="my-16 text-center">
@@ -121,7 +121,7 @@ const LoginPage = () => {
                 className="bg-colour-lavender w-full text-colour-indigo"
                 type="submit"
               >
-                Sign in
+                Login
               </Button>
             </form>
           </Form>
