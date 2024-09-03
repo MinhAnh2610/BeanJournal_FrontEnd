@@ -12,6 +12,8 @@ import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { z } from "zod";
 import Logo from "@/components/custom/Logo";
+import { useState } from "react";
+import { useAuth } from "@/context/useAuth";
 
 const formSchema = z.object({
   userName: z.string().nonempty(),
@@ -21,6 +23,10 @@ const formSchema = z.object({
 });
 
 const RegisterPage = () => {
+  const [isLoading, setIsLoading] = useState(false);
+
+  const { registerUser } = useAuth();
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(
       formSchema.refine((data) => data.password === data.confirmPassword, {
@@ -36,8 +42,19 @@ const RegisterPage = () => {
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    setIsLoading(true);
+    try {
+      await registerUser(
+        values.userName,
+        values.email,
+        values.password,
+        values.confirmPassword
+      );
+    } catch (error) {
+    } finally {
+      setIsLoading(false);
+    }
   }
   return (
     <div className="h-full w-screen p-4 lg:space-y-12 lg:p-16">
@@ -62,11 +79,7 @@ const RegisterPage = () => {
                   <FormItem>
                     <FormLabel>Email</FormLabel>
                     <FormControl>
-                      <Input
-                        type="email"
-                        label="abc@example.com"
-                        {...field}
-                      />
+                      <Input type="email" label="abc@example.com" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -141,8 +154,9 @@ const RegisterPage = () => {
               <Button
                 className="bg-colour-lavender w-full text-colour-indigo"
                 type="submit"
+                isLoading={isLoading}
               >
-                Sign up
+                {isLoading ? "Loading..." : "Sign up"}
               </Button>
             </form>
           </Form>
@@ -153,4 +167,3 @@ const RegisterPage = () => {
 };
 
 export default RegisterPage;
-

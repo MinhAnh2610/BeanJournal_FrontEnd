@@ -11,8 +11,8 @@ type UserContextType = {
   token: string | null;
   refreshToken: string | null;
   registerUser: (
-    email: string,
     username: string,
+    email: string,
     password: string,
     confirmPassword: string
   ) => void;
@@ -44,12 +44,12 @@ export const UserProvider = ({ children }: Props) => {
   }, []);
 
   const registerUser = async (
-    email: string,
     username: string,
+    email: string,
     password: string,
     confirmPassword: string
   ) => {
-    await registerAPI(email, username, password, confirmPassword)
+    await registerAPI(username, email, password, confirmPassword)
       .then((res: any) => {
         if (res) {
           localStorage.setItem("token", res?.data.token);

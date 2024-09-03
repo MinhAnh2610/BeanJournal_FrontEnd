@@ -13,6 +13,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { z } from "zod";
+import { useState } from "react";
 
 const formSchema = z.object({
   email: z.string().email().nonempty(),
@@ -20,6 +21,8 @@ const formSchema = z.object({
 });
 
 const LoginPage = () => {
+  const [isLoading, setIsLoading] = useState(false);
+
   const { loginUser } = useAuth();
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -30,8 +33,14 @@ const LoginPage = () => {
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    loginUser(values.email, values.password);
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    setIsLoading(true);
+    try {
+      await loginUser(values.email, values.password);
+    } catch (error) {
+    } finally {
+      setIsLoading(false);
+    }
   }
   return (
     <div className="h-full w-screen p-4 space-y-24 lg:space-y-36 lg:p-16">
@@ -56,11 +65,7 @@ const LoginPage = () => {
                   <FormItem>
                     <FormLabel>Email</FormLabel>
                     <FormControl>
-                      <Input
-                        type="email"
-                        label="abc@example.com"
-                        {...field}
-                      />
+                      <Input type="email" label="abc@example.com" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -120,8 +125,9 @@ const LoginPage = () => {
               <Button
                 className="bg-colour-lavender w-full text-colour-indigo"
                 type="submit"
+                isLoading={isLoading}
               >
-                Login
+                {isLoading ? "Loading..." : "Login"}
               </Button>
             </form>
           </Form>
