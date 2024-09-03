@@ -1,7 +1,11 @@
+import Sidebar from "@/components/custom/Sidebar";
+
 const Dashboard = () => {
   return (
-    <div>Dashboard</div>
-  )
-}
+    <div className="h-screen w-screen">
+      <Sidebar />
+    </div>
+  );
+};
 
-export default Dashboard
+export default Dashboard;

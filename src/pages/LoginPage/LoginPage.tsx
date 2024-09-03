@@ -36,7 +36,7 @@ const LoginPage = () => {
     loginUser(values.email, values.password);
   }
   return (
-    <div className="space-y-36">
+    <div className="h-screen w-screen p-16 space-y-36">
       <Logo />
       <div>
         <div className="my-16 text-center">

@@ -33,7 +33,7 @@ const ResetPasswordPage = () => {
   }
 
   return (
-    <div className="space-y-20">
+    <div className="h-screen w-screen p-16 space-y-20">
       <Logo />
       <div className="flex justify-center">
         <img src={key} alt="key" />

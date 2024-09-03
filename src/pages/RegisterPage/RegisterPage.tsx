@@ -37,7 +37,7 @@ const RegisterPage = () => {
     console.log(values);
   }
   return (
-    <div className="space-y-16">
+    <div className="h-screen w-screen p-16">
       <Logo/>
       <div>
         <div className="my-16 text-center">
