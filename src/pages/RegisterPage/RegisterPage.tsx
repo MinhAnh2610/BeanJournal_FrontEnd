@@ -22,7 +22,12 @@ const formSchema = z.object({
 
 const RegisterPage = () => {
   const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+    resolver: zodResolver(
+      formSchema.refine((data) => data.password === data.confirmPassword, {
+        message: "Passwords do not match",
+        path: ["confirmPassword"],
+      })
+    ),
     defaultValues: {
       userName: "",
       email: "",
@@ -59,7 +64,7 @@ const RegisterPage = () => {
                     <FormControl>
                       <Input
                         type="email"
-                        label="Enter your email..."
+                        label="abc@example.com"
                         {...field}
                       />
                     </FormControl>
@@ -148,3 +153,4 @@ const RegisterPage = () => {
 };
 
 export default RegisterPage;
+

@@ -20,7 +20,12 @@ const formSchema = z.object({
 
 const ResetPasswordPage = () => {
   const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+    resolver: zodResolver(
+      formSchema.refine((data) => data.password === data.confirmPassword, {
+        message: "Passwords do not match",
+        path: ["confirmPassword"],
+      })
+    ),
     defaultValues: {
       password: "",
       confirmPassword: "",
@@ -57,7 +62,11 @@ const ResetPasswordPage = () => {
                   <FormItem>
                     <FormLabel>Password</FormLabel>
                     <FormControl>
-                      <Input type="password" label="Enter your new password..." {...field} />
+                      <Input
+                        type="password"
+                        label="Enter your new password..."
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -70,7 +79,11 @@ const ResetPasswordPage = () => {
                   <FormItem>
                     <FormLabel>Confirm Password</FormLabel>
                     <FormControl>
-                      <Input type="password" label="Re-enter your new password..." {...field} />
+                      <Input
+                        type="password"
+                        label="Re-enter your new password..."
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>

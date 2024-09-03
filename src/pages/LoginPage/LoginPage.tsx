@@ -58,7 +58,7 @@ const LoginPage = () => {
                     <FormControl>
                       <Input
                         type="email"
-                        label="Enter your email..."
+                        label="abc@example.com"
                         {...field}
                       />
                     </FormControl>

@@ -57,7 +57,7 @@ const ForgotPasswordPage = () => {
                   <FormItem>
                     <FormLabel>Email</FormLabel>
                     <FormControl>
-                      <Input type="email" label="Enter your email..." {...field} />
+                      <Input type="email" label="abc@example.com" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
