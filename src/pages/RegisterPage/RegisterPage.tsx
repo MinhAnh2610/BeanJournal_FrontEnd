@@ -1,14 +1,12 @@
-import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
+import { Input, Button } from "@nextui-org/react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
@@ -37,10 +35,10 @@ const RegisterPage = () => {
     console.log(values);
   }
   return (
-    <div className="h-screen w-screen p-16">
+    <div className="h-screen w-screen p-4 lg:space-y-12 lg:p-16">
       <Logo/>
       <div>
-        <div className="my-16 text-center">
+        <div className="my-10 text-center lg:my-16">
           <h1 className="text-3xl">Take the first step</h1>
           <h2 className="text-gray-400 text-lg">
             Create your BeanJournal account
@@ -50,7 +48,7 @@ const RegisterPage = () => {
           <Form {...form}>
             <form
               onSubmit={form.handleSubmit(onSubmit)}
-              className="space-y-8 w-1/4"
+              className="space-y-6 w-full lg:w-1/4"
             >
               <FormField
                 control={form.control}
@@ -59,11 +57,8 @@ const RegisterPage = () => {
                   <FormItem>
                     <FormLabel>Email</FormLabel>
                     <FormControl>
-                      <Input placeholder="Enter your email" {...field} />
+                      <Input type="email" label="Enter your email..." {...field} />
                     </FormControl>
-                    <FormDescription>
-                      This is your email address.
-                    </FormDescription>
                     <FormMessage />
                   </FormItem>
                 )}
@@ -75,11 +70,8 @@ const RegisterPage = () => {
                   <FormItem>
                     <FormLabel>Username</FormLabel>
                     <FormControl>
-                      <Input placeholder="Enter your username" {...field} />
+                      <Input type="text" label="Enter your username..." {...field} />
                     </FormControl>
-                    <FormDescription>
-                      This is your public display name.
-                    </FormDescription>
                     <FormMessage />
                   </FormItem>
                 )}
@@ -93,7 +85,7 @@ const RegisterPage = () => {
                     <FormControl>
                       <Input
                         type="password"
-                        placeholder="Enter your password"
+                        label="Enter your password..."
                         {...field}
                       />
                     </FormControl>
@@ -110,7 +102,7 @@ const RegisterPage = () => {
                     <FormControl>
                       <Input
                         type="password"
-                        placeholder="Re-enter your password"
+                        label="Re-enter your password..."
                         {...field}
                       />
                     </FormControl>

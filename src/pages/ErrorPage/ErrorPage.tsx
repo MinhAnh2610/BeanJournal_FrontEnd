@@ -4,7 +4,7 @@ const ErrorPage = () => {
   return (
     <div className="flex flex-col items-center">
       <div>
-        <h1 className="font-bold text-8xl p-24 text-gray-800">
+        <h1 className="font-bold text-4xl p-4 text-gray-800 lg:text-8xl lg:p-24">
           PAGE NOT FOUND
         </h1>
       </div>

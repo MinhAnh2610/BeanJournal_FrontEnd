@@ -1,5 +1,4 @@
 import Logo from "@/components/custom/Logo";
-import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
@@ -8,7 +7,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
+import { Input, Button } from "@nextui-org/react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ArrowLeftIcon } from "@radix-ui/react-icons";
 import { useForm } from "react-hook-form";
@@ -33,23 +32,23 @@ const ForgotPasswordPage = () => {
   }
 
   return (
-    <div className="h-screen w-screen p-16 space-y-20">
+    <div className="h-screen w-screen space-y-20 p-4 lg:p-16">
       <Logo />
       <div className="flex justify-center">
         <img src={key} alt="key" />
       </div>
       <div>
         <div className="my-16 text-center">
-          <h1 className="text-3xl">Forgot you password ?</h1>
+          <h1 className="text-3xl">Forgot your password ?</h1>
           <h2 className="text-gray-400 text-lg">
             No worries, we will send you a reset instruction
           </h2>
         </div>
-        <div className="flex justify-center">
+        <div className="flex justify-center w-full">
           <Form {...form}>
             <form
               onSubmit={form.handleSubmit(onSubmit)}
-              className="space-y-8 w-1/4"
+              className="space-y-8 w-full lg:w-1/4"
             >
               <FormField
                 control={form.control}
@@ -58,7 +57,7 @@ const ForgotPasswordPage = () => {
                   <FormItem>
                     <FormLabel>Email</FormLabel>
                     <FormControl>
-                      <Input placeholder="Enter your email" {...field} />
+                      <Input type="email" label="Enter your email..." {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>

@@ -1,6 +1,4 @@
 import Logo from "@/components/custom/Logo";
-import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
 import {
   Form,
   FormControl,
@@ -9,7 +7,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
+import { Input, Button, Checkbox } from "@nextui-org/react";
 import { useAuth } from "@/context/useAuth";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -36,7 +34,7 @@ const LoginPage = () => {
     loginUser(values.email, values.password);
   }
   return (
-    <div className="h-screen w-screen p-16 space-y-36">
+    <div className="h-screen w-screen p-4 space-y-24 lg:space-y-36 lg:p-16">
       <Logo />
       <div>
         <div className="my-16 text-center">
@@ -45,11 +43,11 @@ const LoginPage = () => {
             Enter your email and password to access your account
           </h2>
         </div>
-        <div className="flex justify-center">
+        <div className="flex justify-center w-full">
           <Form {...form}>
             <form
               onSubmit={form.handleSubmit(onSubmit)}
-              className="space-y-8 w-1/4"
+              className="space-y-8 w-full lg:w-1/4"
             >
               <FormField
                 control={form.control}
@@ -58,7 +56,11 @@ const LoginPage = () => {
                   <FormItem>
                     <FormLabel>Email</FormLabel>
                     <FormControl>
-                      <Input placeholder="Enter your email" {...field} />
+                      <Input
+                        type="email"
+                        label="Enter your email..."
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -73,7 +75,7 @@ const LoginPage = () => {
                     <FormControl>
                       <Input
                         type="password"
-                        placeholder="Enter your password"
+                        label="Enter your password..."
                         {...field}
                       />
                     </FormControl>
@@ -109,7 +111,7 @@ const LoginPage = () => {
                 <div className="flex items-center">
                   <Link
                     to="/forgot-password"
-                    className="text-gray-400 text-sm font-medium"
+                    className="text-gray-400 font-medium text-sm"
                   >
                     Forgot password
                   </Link>

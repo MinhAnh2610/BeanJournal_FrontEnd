@@ -135,3 +135,10 @@ button:focus-visible {
     @apply bg-background text-foreground;
   }
 }
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+  -webkit-text-fill-color: #000; /* Text color */
+  transition: background-color 5000s ease-in-out 0s;
+}

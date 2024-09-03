@@ -1,22 +1,10 @@
 /** @type {import('tailwindcss').Config} */
+const { nextui } = require("@nextui-org/react");
 export default {
   darkMode: ["class"],
-  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
+  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}", "./node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
-      fontSize: {
-        xs: "0.75rem",
-        sm: "0.875rem",
-        base: "1.125rem", // Set the base font size to 1.125rem (18px)
-        md: "1.25rem",
-        lg: "1.5rem",
-        xl: "1.75rem",
-        "2xl": "2rem",
-        "3xl": "2.5rem",
-        "4xl": "3rem",
-        "5xl": "3.5rem",
-        "6xl": "4rem",
-      },
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
@@ -71,5 +59,5 @@ export default {
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [require("tailwindcss-animate"), nextui()],
 };
