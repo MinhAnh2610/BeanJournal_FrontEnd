@@ -1,9 +1,9 @@
 import { motion, useAnimationControls } from "framer-motion";
-import { Home, PanelLeft, Search, Settings } from "lucide-react";
+import { Activity, Ellipsis, Home, Leaf, PanelLeft, Rainbow, Search, Settings } from "lucide-react";
 import { useEffect, useState } from "react";
 import SidebarLink from "./SidebarLink";
 import Logo from "./Logo";
-import { User } from "@nextui-org/react";
+import { Button, User } from "@nextui-org/react";
 
 const containerVariants = {
   close: {
@@ -70,7 +70,7 @@ const Sidebar = () => {
       variants={containerVariants}
       animate={containerControls}
       initial="open"
-      className="bg-gray-100 flex flex-col z-10 gap-20 p-5 top-0 left-0 h-full shadow shadow-neutral-50"
+      className="bg-gray-100 flex flex-col z-10 gap-10 p-5 top-0 left-0 max-h-100vh shadow shadow-neutral-50"
     >
       <div className="flex flex-row w-full justify-center place-items-center h-10 -pl-2">
         <motion.div
@@ -98,12 +98,41 @@ const Sidebar = () => {
           <Settings className="stroke-inherit stroke-[0.75] min-w-8 w-8" />
         </SidebarLink>
       </div>
-      <div className="flex border-t border-gray-300 min-h-12 w-full overflow-hidden mt-auto">
-        <User
-          name="Soybean"
-          description="soybean@example.com"
-          className="pt-5"
-        />
+      <div className="flex flex-col gap-4">
+        <p
+          className={`text-gray-400 font-semibold w-full ${
+            isOpen ? "text-md" : "text-xs text-center"
+          }`}
+        >
+          Trending Tags
+        </p>
+        <div className="flex flex-wrap gap-2">
+          <Button
+            variant="bordered"
+            isIconOnly={!isOpen}
+            className="rounded-full text-lg text-gray-400 p-2"
+          >
+            <Rainbow /> {isOpen && "Study"}
+          </Button>
+          <Button
+            variant="bordered"
+            isIconOnly={!isOpen}
+            className="rounded-full text-lg text-gray-400 p-2"
+          >
+            <Activity /> {isOpen && "Fitness"}
+          </Button>
+          <Button
+            variant="bordered"
+            isIconOnly={!isOpen}
+            className="rounded-full text-lg text-gray-400 p-2"
+          >
+            <Leaf /> {isOpen && "Nature"}
+          </Button>
+        </div>
+      </div>
+      <div className="flex place-items-center justify-between border-t pt-5 border-gray-300 min-h-12 w-full overflow-hidden mt-auto">
+        <User name="Soybean" description="soybean@example.com" />
+        <Ellipsis />
       </div>
     </motion.nav>
   );
