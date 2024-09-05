@@ -1,62 +1,111 @@
-import { DotsHorizontalIcon } from "@radix-ui/react-icons";
-import { PanelLeftIcon } from "lucide-react";
-import { createContext, useState } from "react";
-import { Avatar, AvatarFallback } from "../ui/avatar";
+import { motion, useAnimationControls } from "framer-motion";
+import { Home, PanelLeft, Search, Settings } from "lucide-react";
+import { useEffect, useState } from "react";
+import SidebarLink from "./SidebarLink";
 import Logo from "./Logo";
+import { User } from "@nextui-org/react";
 
-export const SidebarContext = createContext(true);
+const containerVariants = {
+  close: {
+    width: "5rem",
+    transition: {
+      type: "spring",
+      damping: 15,
+      duration: 0.5,
+    },
+  },
+  open: {
+    width: "16rem",
+    transition: {
+      type: "spring",
+      damping: 15,
+      duration: 0.5,
+    },
+  },
+};
 
-const Sidebar = ({ children }: { children: React.ReactNode }) => {
-  const [expanded, setExpanded] = useState(true);
+const divVariants = {
+  close: {
+    width: "0rem",
+    opacity: 0,
+    transition: {
+      type: "spring",
+      damping: 15,
+      duration: 0.5,
+    },
+  },
+  open: {
+    width: "16rem",
+    opacity: 1,
+    transition: {
+      type: "spring",
+      damping: 15,
+      duration: 0.5,
+    },
+  },
+};
+
+const Sidebar = () => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const containerControls = useAnimationControls();
+  const divControls = useAnimationControls();
+
+  useEffect(() => {
+    if (isOpen) {
+      containerControls.start("open");
+      divControls.start("open");
+    } else {
+      containerControls.start("close");
+      divControls.start("close");
+    }
+  }, [isOpen]);
+
+  const handleOpenClose = () => {
+    setIsOpen(!isOpen);
+  };
+
   return (
-    <aside className="h-screen">
-      <nav className={`h-full flex flex-col bg-gray-50 border-r shadow-sm`}>
-        <div className="py-2 flex justify-center items-center">
-          <div
-            className={`flex items-center text-nowrap overflow-hidden transition-all ${
-              expanded ? "w-full px-6" : "w-0"
-            }`}
-          >
-            <Logo />
-          </div>
-          <div className="px-6 pt-1">
-            <PanelLeftIcon
-              className="h-6 text-gray-500"
-              onClick={() => setExpanded(!expanded)}
-            />
-          </div>
-        </div>
-
-        <SidebarContext.Provider value={expanded}>
-          <ul className="flex-1 px-3 mt-10">{children}</ul>
-        </SidebarContext.Provider>
-
-        <div>
-            <p>Trending tags</p>
-        </div>
-
-        <div className="border-t border-gray-300 flex p-3">
-          <Avatar className="ml-2">
-            <AvatarFallback className="bg-colour-blue font-semibold">
-              S
-            </AvatarFallback>
-          </Avatar>
-          <div
-            className={`flex justify-between items-center w-full ml-3 text-nowrap overflow-hidden transition-all ${
-              expanded ? "w-full" : "w-0"
-            }`}
-          >
-            <div className="leading-4">
-              <h4 className="font-semibold">Soybean</h4>
-              <span className="text-xs text-gray-600">soybean@example.com</span>
-            </div>
-            <div>
-              <DotsHorizontalIcon />
-            </div>
-          </div>
-        </div>
-      </nav>
-    </aside>
+    <motion.nav
+      variants={containerVariants}
+      animate={containerControls}
+      initial="open"
+      className="bg-gray-100 flex flex-col z-10 gap-20 p-5 top-0 left-0 h-full shadow shadow-neutral-50"
+    >
+      <div className="flex flex-row w-full justify-center place-items-center h-10 -pl-2">
+        <motion.div
+          variants={divVariants}
+          animate={divControls}
+          className="flex flex-row items-center text-nowrap overflow-hidden"
+        >
+          <Logo />
+        </motion.div>
+        <button
+          className="p-1 rounded-full flex border-none"
+          onClick={() => handleOpenClose()}
+        >
+          <PanelLeft className="w-6 h-6 text-gray-600" />
+        </button>
+      </div>
+      <div className="flex flex-col gap-3">
+        <SidebarLink name="Search">
+          <Search className="stroke-inherit stroke-[0.75] min-w-8 w-8" />
+        </SidebarLink>
+        <SidebarLink name="Home" active>
+          <Home className="stroke-inherit stroke-[0.75] min-w-8 w-8" />
+        </SidebarLink>
+        <SidebarLink name="Settings">
+          <Settings className="stroke-inherit stroke-[0.75] min-w-8 w-8" />
+        </SidebarLink>
+      </div>
+      <div className="flex border-t border-gray-300 min-h-12 w-full overflow-hidden mt-auto">
+        <User
+          name="Soybean"
+          description="soybean@example.com"
+          className="pt-5"
+        />
+      </div>
+    </motion.nav>
   );
 };
 

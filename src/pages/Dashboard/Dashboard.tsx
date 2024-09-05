@@ -1,34 +1,18 @@
 import Sidebar from "@/components/custom/Sidebar";
-import SidebarItem from "@/components/custom/SidebarItem";
-import { HomeIcon } from "@radix-ui/react-icons";
-import { Search, Settings } from "lucide-react";
 
 const Dashboard = () => {
   return (
-    <div className="h-full w-screen flex">
-      <div className="">
-        <Sidebar>
-          <SidebarItem
-            icon={<Search className="w-8 h-8"/>}
-            text="Search"
-            active={false}
-            alert={false}
-          />
-          <SidebarItem
-            icon={<HomeIcon className="w-8 h-8"/>}
-            text="Home"
-            active={true}
-            alert={false}
-          />
-          <SidebarItem
-            icon={<Settings className="w-8 h-8"/>}
-            text="Settings"
-            active={false}
-            alert={false}
-          />
-        </Sidebar>
-      </div>
-    </div>
+    <main className="w-full h-screen flex flex-row relative">
+      <Sidebar />
+      <section className="flex flex-col p-10 w-full gap-5">
+        <h1 className="text-4xl text-neutral-200">Dashboard</h1>
+        <div className="w-full h-80 border border-neutral-500/50 bg-neutral-800/20 rounded"></div>
+        <div className="flex flex-row gap-5 w-full">
+          <div className="border-neutral-500/50 h-60 w-1/2 bg-neutral-800/20 rounded border"></div>
+          <div className="border-neutral-500/50 h-60 w-1/2 bg-neutral-800/20 rounded border"></div>
+        </div>
+      </section>
+    </main>
   );
 };
 
