@@ -100,7 +100,7 @@ const Sidebar = () => {
       </div>
       <div className="flex flex-col gap-4">
         <p
-          className={`text-gray-400 font-semibold w-full ${
+          className={`text-gray-500 font-semibold w-full ${
             isOpen ? "text-md" : "text-xs text-center"
           }`}
         >
@@ -110,21 +110,21 @@ const Sidebar = () => {
           <Button
             variant="bordered"
             isIconOnly={!isOpen}
-            className="rounded-full text-lg text-gray-400 p-2"
+            className="rounded-full text-lg text-gray-500 p-2"
           >
             <Rainbow /> {isOpen && "Study"}
           </Button>
           <Button
             variant="bordered"
             isIconOnly={!isOpen}
-            className="rounded-full text-lg text-gray-400 p-2"
+            className="rounded-full text-lg text-gray-500 p-2"
           >
             <Activity /> {isOpen && "Fitness"}
           </Button>
           <Button
             variant="bordered"
             isIconOnly={!isOpen}
-            className="rounded-full text-lg text-gray-400 p-2"
+            className="rounded-full text-lg text-gray-500 p-2"
           >
             <Leaf /> {isOpen && "Nature"}
           </Button>
