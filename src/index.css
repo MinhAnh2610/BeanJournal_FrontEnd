@@ -14,6 +14,7 @@
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
+  -webkit-text-fill-color: #000;
   -moz-osx-font-smoothing: grayscale;
 }
 
@@ -134,11 +135,4 @@ button:focus-visible {
   body {
     @apply bg-background text-foreground;
   }
-}
-
-input:-webkit-autofill,
-input:-webkit-autofill:hover,
-input:-webkit-autofill:focus {
-  -webkit-text-fill-color: #000; /* Text color */
-  transition: background-color 5000s ease-in-out 0s;
 }

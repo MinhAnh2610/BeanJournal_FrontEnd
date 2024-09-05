@@ -10,12 +10,12 @@ import Logo from "@/components/custom/Logo";
 
 const HomePage = () => {
   return (
-    <div className="h-full w-screen">
+    <div className="h-full w-full">
       <Navbar shouldHideOnScroll className="items">
         <NavbarBrand>
           <Logo />
         </NavbarBrand>
-        <NavbarContent className="hidden sm:flex gap-4" justify="center">
+        {/* <NavbarContent className="sm:flex gap-4" justify="center">
           <NavbarItem>
             <Link color="foreground" to="/features">
               Features
@@ -31,9 +31,9 @@ const HomePage = () => {
               Integrations
             </Link>
           </NavbarItem>
-        </NavbarContent>
+        </NavbarContent> */}
         <NavbarContent justify="end">
-          <NavbarItem className="hidden lg:flex">
+          <NavbarItem className="lg:flex">
             <Link to="/login">Login</Link>
           </NavbarItem>
           <NavbarItem>

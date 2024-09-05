@@ -15,7 +15,7 @@ const containerVariants = {
     },
   },
   open: {
-    width: "16rem",
+    width: "30rem",
     transition: {
       type: "spring",
       damping: 15,
@@ -26,6 +26,7 @@ const containerVariants = {
 
 const divVariants = {
   close: {
+    paddingLeft: "0rem",
     width: "0rem",
     opacity: 0,
     transition: {
@@ -35,6 +36,7 @@ const divVariants = {
     },
   },
   open: {
+    paddingLeft: "0.5rem",
     width: "16rem",
     opacity: 1,
     transition: {
@@ -72,7 +74,7 @@ const Sidebar = () => {
       initial="open"
       className="bg-gray-100 flex flex-col z-10 gap-10 p-5 top-0 left-0 max-h-[100vh] shadow sticky shadow-neutral-50"
     >
-      <div className="flex flex-row w-full justify-center place-items-center h-10 -pl-2">
+      <div className="flex flex-row w-full justify-between place-items-center h-10">
         <motion.div
           variants={divVariants}
           animate={divControls}
@@ -81,7 +83,7 @@ const Sidebar = () => {
           <Logo />
         </motion.div>
         <button
-          className="p-1 rounded-full flex border-none"
+          className="p-2 rounded-full flex border-none"
           onClick={() => handleOpenClose()}
         >
           <PanelLeft className="w-6 h-6 text-gray-600" />

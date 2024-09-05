@@ -2,9 +2,9 @@ import Logo from "@/components/custom/Logo";
 
 const ErrorPage = () => {
   return (
-    <div className="flex flex-col items-center">
+    <div className="h-screen flex flex-col items-center justify-center">
       <div>
-        <h1 className="font-bold text-4xl p-4 text-gray-800 lg:text-8xl lg:p-24">
+        <h1 className="-mt-24 font-bold text-4xl p-4 text-gray-800 lg:text-8xl lg:p-24">
           PAGE NOT FOUND
         </h1>
       </div>
