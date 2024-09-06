@@ -50,15 +50,15 @@ function App() {
       </NextUIProvider>
       <div
         id="intro-slider"
-        className="h-screen bg-colour-indigo absolute top-0 left-0 z-50 w-full flex gap-5 justify-center place-items-center tracking-tight"
+        className="h-screen bg-colour-lavender absolute top-0 left-0 z-50 w-full flex gap-5 justify-center place-items-center tracking-tight"
       >
-        <h1 className="text-white text-7xl font-bold" id="title-1">
+        <h1 className="text-colour-indigo text-7xl font-bold" id="title-1">
           Capture
         </h1>
-        <h1 className="text-white text-7xl font-bold" id="title-2">
+        <h1 className="text-colour-indigo text-7xl font-bold" id="title-2">
           Reflect
         </h1>
-        <h1 className="text-white text-7xl font-bold" id="title-3">
+        <h1 className="text-colour-indigo text-7xl font-bold" id="title-3">
           Grow
         </h1>
       </div>
