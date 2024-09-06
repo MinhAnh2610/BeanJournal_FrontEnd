@@ -1,48 +1,12 @@
 import { Link } from "react-router-dom";
-import {
-  Navbar,
-  NavbarBrand,
-  NavbarContent,
-  NavbarItem,
-  Button,
-} from "@nextui-org/react";
 import Logo from "@/components/custom/Logo";
 
 const HomePage = () => {
   return (
-    <div className="h-full w-full">
-      <Navbar shouldHideOnScroll className="items">
-        <NavbarBrand>
-          <Logo />
-        </NavbarBrand>
-        {/* <NavbarContent className="sm:flex gap-4" justify="center">
-          <NavbarItem>
-            <Link color="foreground" to="/features">
-              Features
-            </Link>
-          </NavbarItem>
-          <NavbarItem isActive>
-            <Link to="/customers" aria-current="page">
-              Customers
-            </Link>
-          </NavbarItem>
-          <NavbarItem>
-            <Link color="foreground" to="/integrations">
-              Integrations
-            </Link>
-          </NavbarItem>
-        </NavbarContent> */}
-        <NavbarContent justify="end">
-          <NavbarItem className="lg:flex">
-            <Link to="/login">Login</Link>
-          </NavbarItem>
-          <NavbarItem>
-            <Button as={Link} color="primary" to="/register" variant="flat">
-              Sign Up
-            </Button>
-          </NavbarItem>
-        </NavbarContent>
-      </Navbar>
+    <div className="flex h-screen justify-center items-center gap-10">
+      <Logo />
+      <Link to="/login">Login</Link>
+      <Link to="/register">Register</Link>
     </div>
   );
 };

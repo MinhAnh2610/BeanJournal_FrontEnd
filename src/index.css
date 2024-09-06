@@ -2,6 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+  -webkit-text-fill-color: #000; 
+  /* -webkit-box-shadow: 0 0 0px 1000px white inset;  */
+  transition: background-color 5000s ease-in-out 0s;
+}
+
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -14,7 +22,6 @@
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
-  -webkit-text-fill-color: #000;
   -moz-osx-font-smoothing: grayscale;
 }
 
