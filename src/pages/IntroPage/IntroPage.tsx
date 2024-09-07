@@ -10,36 +10,36 @@ const IntroPage = ({ comp }: Props) => {
       t1.from(["#title-1", "#title-2", "#title-3"], {
         opacity: 0,
         y: "+=30",
-        stagger: 0.5,
+        stagger: 0.3,
       })
         .to(["#title-1", "#title-2", "#title-3"], {
           opacity: 0,
           y: "-=30",
           delay: 0.1,
-          stagger: 0.3,
+          stagger: 0.2,
         })
         .to("#intro-slider", {
           xPercent: -100,
-          duration: 1.3,
+          duration: 0.7,
         })
         .from("#logo", {
           opacity: 0,
-          duration: 0.5,
+          duration: 0.3,
           y: "+=50",
         })
         .fromTo(
           [
             "#Path_11",
-            "#Path_10",
-            "#Path_9",
-            "#Path_8",
-            "#Path_7",
-            "#Path_6",
-            "#Path_5",
-            "#Path_4",
-            "#Path_3",
-            "#Path_2",
             "#Path_1",
+            "#Path_10",
+            "#Path_2",
+            "#Path_9",
+            "#Path_3",
+            "#Path_8",
+            "#Path_4",
+            "#Path_7",
+            "#Path_5",
+            "#Path_6",
           ],
           {
             strokeDasharray: "500, 500",
@@ -50,7 +50,7 @@ const IntroPage = ({ comp }: Props) => {
             strokeDashoffset: 0,
             duration: 1.2,
             ease: "power1.inOut",
-            stagger: 0.3,
+            stagger: 0.15,
           }
         )
         .fromTo(
@@ -69,11 +69,11 @@ const IntroPage = ({ comp }: Props) => {
           ],
           {
             fill: "#fff",
-            duration: 0.3,
+            duration: 0.1,
           },
           {
             fill: "#3D3D3D",
-            duration: 0.3,
+            duration: 0.1,
             stroke: "#3D3D3D",
           }
         )
