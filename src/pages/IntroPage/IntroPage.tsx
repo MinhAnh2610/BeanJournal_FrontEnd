@@ -79,7 +79,7 @@ const IntroPage = ({ comp }: Props) => {
           }
         )
         .to("#welcome-slider", {
-          xPercent: -100,
+          yPercent: -100,
           duration: 1.3,
           delay: 1.5,
         });
@@ -91,7 +91,7 @@ const IntroPage = ({ comp }: Props) => {
     <>
       <div
         id="intro-slider"
-        className="h-screen bg-colour-lavender absolute top-0 left-0 z-10 w-full flex gap-5 justify-center lg:place-items-center tracking-tight pl-24 flex-col lg:flex-row lg:pl-0"
+        className="h-screen bg-colour-lavender fixed top-0 left-0 z-50 w-full flex gap-5 justify-center lg:place-items-center tracking-tight pl-24 flex-col lg:flex-row lg:pl-0"
       >
         <h1
           className="text-colour-indigo text-md font-bold lg:text-6xl"
@@ -114,7 +114,7 @@ const IntroPage = ({ comp }: Props) => {
       </div>
       <div
         id="welcome-slider"
-        className="h-screen bg-white absolute top-0 left-0 w-full flex justify-center place-items-center p-4"
+        className="h-screen bg-white fixed z-40 top-0 left-0 w-full flex justify-center place-items-center p-4"
       >
         <svg
           width="729"

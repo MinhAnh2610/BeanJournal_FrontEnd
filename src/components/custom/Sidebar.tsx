@@ -1,9 +1,11 @@
 import { motion, useAnimationControls } from "framer-motion";
-import { Activity, Ellipsis, Home, Leaf, PanelLeft, Rainbow, Search, Settings } from "lucide-react";
+import { Activity, Home, Leaf, PanelLeft, Rainbow, Search } from "lucide-react";
 import { useEffect, useState } from "react";
 import SidebarLink from "./SidebarLink";
 import Logo from "./Logo";
 import { Button, User } from "@nextui-org/react";
+import DropdownIcon from "./Dropdown";
+import UserProfile from "./UserProfile";
 
 const containerVariants = {
   close: {
@@ -48,7 +50,7 @@ const divVariants = {
 };
 
 const Sidebar = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(true);
 
   const containerControls = useAnimationControls();
   const divControls = useAnimationControls();
@@ -96,9 +98,7 @@ const Sidebar = () => {
         <SidebarLink name="Home" active>
           <Home className="stroke-inherit stroke-[0.75] min-w-8 w-8" />
         </SidebarLink>
-        <SidebarLink name="Settings">
-          <Settings className="stroke-inherit stroke-[0.75] min-w-8 w-8" />
-        </SidebarLink>
+        <UserProfile />
       </div>
       <div className="flex flex-col gap-4">
         <p
@@ -134,7 +134,7 @@ const Sidebar = () => {
       </div>
       <div className="flex place-items-center justify-between border-t pt-5 border-gray-300 min-h-12 w-full overflow-hidden mt-auto">
         <User name="Soybean" description="soybean@example.com" />
-        <Ellipsis />
+        <DropdownIcon />
       </div>
     </motion.nav>
   );
