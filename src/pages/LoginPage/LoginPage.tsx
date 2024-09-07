@@ -90,10 +90,9 @@ const LoginPage = () => {
               />
               <div className="flex justify-between">
                 <div className="flex items-center space-x-2">
-                  <Checkbox id="terms1" />
+                  <Checkbox />
                   <div className="grid gap-1.5 leading-none">
                     <label
-                      htmlFor="terms1"
                       className="text-gray-400 text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                     >
                       Remember me
