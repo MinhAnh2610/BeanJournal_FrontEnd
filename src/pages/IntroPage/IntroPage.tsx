@@ -15,8 +15,8 @@ const IntroPage = ({ comp }: Props) => {
         .to(["#title-1", "#title-2", "#title-3"], {
           opacity: 0,
           y: "-=30",
-          delay: 0.3,
-          stagger: 0.5,
+          delay: 0.1,
+          stagger: 0.3,
         })
         .to("#intro-slider", {
           xPercent: -100,
@@ -42,14 +42,13 @@ const IntroPage = ({ comp }: Props) => {
             "#Path_1",
           ],
           {
-            opacity: 1,
             strokeDasharray: "500, 500",
             strokeDashoffset: 500,
             ease: "power1.inOut",
           },
           {
             strokeDashoffset: 0,
-            duration: 1.5,
+            duration: 1.2,
             ease: "power1.inOut",
             stagger: 0.3,
           }
@@ -70,18 +69,18 @@ const IntroPage = ({ comp }: Props) => {
           ],
           {
             fill: "#fff",
-            duration: 0.5,
+            duration: 0.3,
           },
           {
             fill: "#3D3D3D",
-            duration: 0.5,
+            duration: 0.3,
             stroke: "#3D3D3D",
           }
         )
         .to("#welcome-slider", {
           yPercent: -100,
-          duration: 1.3,
-          delay: 1.5,
+          duration: 1,
+          delay: 0.7,
         });
     }, comp);
     return () => ctx.revert();
