@@ -69,12 +69,13 @@ const IntroPage = ({ comp }: Props) => {
           ],
           {
             fill: "#fff",
-            duration: 0.1,
           },
           {
             fill: "#3D3D3D",
             duration: 0.1,
             stroke: "#3D3D3D",
+            ease: "power1.inOut",
+            stagger: 0.1,
           }
         )
         .to("#welcome-slider", {
