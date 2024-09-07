@@ -31,12 +31,6 @@ const DiaryCalendar = () => {
       start: "2024-09-10",
       end: "2024-09-10",
     },
-    {
-      id: "5",
-      title: "My new event",
-      start: "2024-09-11",
-      end: "2024-09-11",
-    },
   ]);
 
   const calendar = useCalendarApp({
@@ -48,7 +42,7 @@ const DiaryCalendar = () => {
   useEffect(() => {
     setEvents([]);
     setSelectedDate("2024-09-07");
-  }, [events]);
+  }, []);
 
   return (
     <div>
