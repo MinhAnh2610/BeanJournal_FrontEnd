@@ -27,8 +27,10 @@ const UserProfile = () => {
             <>
               <ModalHeader className="flex flex-col gap-1">
                 <div className="grid grid-cols-10">
-                    <div className="border border-black col-span-3">Settings</div>
-                    <div className="border border-black col-span-7"></div>
+                  <div className="border border-black col-span-3">Settings</div>
+                  <div className="border border-black col-span-7">
+                    <Button onClick={onClose}>Close</Button>
+                  </div>
                 </div>
               </ModalHeader>
               <ModalBody>
@@ -51,9 +53,7 @@ const UserProfile = () => {
                   eiusmod et. Culpa deserunt nostrud ad veniam.
                 </p>
               </ModalBody>
-              <ModalFooter>
-
-              </ModalFooter>
+              <ModalFooter></ModalFooter>
             </>
           )}
         </ModalContent>
