@@ -4,7 +4,7 @@ const DiaryCalendar = () => {
   return (
     <div>
       <Calendar
-        aria-label="Date (Show Month and Year Picker)"
+        weekdayStyle="long"
         showMonthAndYearPickers
       />
     </div>
