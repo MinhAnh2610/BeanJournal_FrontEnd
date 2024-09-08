@@ -1,5 +1,3 @@
-"use client";
-
 import "./App.css";
 import { Toaster } from "sonner";
 import { Outlet, useLocation } from "react-router-dom";
