@@ -8,6 +8,8 @@ import RegisterPage from "@/pages/RegisterPage/RegisterPage";
 import ResetPasswordPage from "@/pages/ResetPasswordPage/ResetPasswordPage";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import ProtectedRoutes from "./ProtectedRoutes";
+import DiaryEntryPage from "@/pages/Dashboard/DiaryEntryPage/DiaryEntryPage";
+import UserDashboard from "@/pages/Dashboard/UserDashboard/UserDashboard";
 
 const RouterComponent = () => {
   const router = createBrowserRouter([
@@ -27,6 +29,10 @@ const RouterComponent = () => {
               <Dashboard />
             </ProtectedRoutes>
           ),
+          children: [
+            { path: "", element: <UserDashboard /> },
+            { path: "diary", element: <DiaryEntryPage /> },
+          ],
         },
         // Catch-all route for 404 errors
         { path: "*", element: <ErrorPage /> },

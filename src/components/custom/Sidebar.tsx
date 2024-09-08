@@ -74,7 +74,7 @@ const Sidebar = () => {
       variants={containerVariants}
       animate={containerControls}
       initial="open"
-      className="bg-gray-100 flex flex-col z-10 gap-10 p-5 top-0 left-0 max-h-[100vh] shadow sticky shadow-neutral-50"
+      className="bg-gray-100 flex flex-col z-10 gap-10 p-5 top-0 left-0 h-screen shadow sticky shadow-neutral-50"
     >
       <div className="flex flex-row w-full justify-between place-items-center h-10">
         <motion.div

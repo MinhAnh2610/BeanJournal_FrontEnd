@@ -3,7 +3,7 @@ import { Card, Skeleton } from "@nextui-org/react";
 const Weather = () => {
   return (
     <div className="flex flex-col gap-3 h-60">
-      <Card className="space-y-5 p-4 h-full" radius="lg">
+      <Card className="space-y-5 p-4 h-full shadow-none" radius="lg">
         <Skeleton isLoaded className="rounded-lg">
           <div className="h-24 rounded-lg bg-secondary-100"></div>
         </Skeleton>
