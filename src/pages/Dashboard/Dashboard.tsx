@@ -2,7 +2,7 @@ import Sidebar from "@/components/custom/Sidebar";
 import { CalendarDays, Clock } from "lucide-react";
 import Weather from "@/components/custom/Weather";
 import RecentlyVisited from "@/components/custom/RecentlyVisited";
-import DiaryCalendar from "@/components/custom/DiaryCalendar";
+import DiaryCalendar from "@/components/custom/DiaryCalendar/DiaryCalendar";
 
 const Dashboard = () => {
   return (
