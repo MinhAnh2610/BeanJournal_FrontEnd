@@ -1,11 +1,20 @@
 import { motion, useAnimationControls } from "framer-motion";
-import { Activity, Home, Leaf, PanelLeft, Rainbow, Search } from "lucide-react";
+import {
+  Activity,
+  BookHeart,
+  Home,
+  Leaf,
+  PanelLeft,
+  Rainbow,
+  Search,
+} from "lucide-react";
 import { useEffect, useState } from "react";
 import SidebarLink from "./SidebarLink";
 import Logo from "./Logo";
 import { Button, User } from "@nextui-org/react";
 import DropdownIcon from "./Dropdown";
 import UserProfile from "./UserProfile";
+import { useLocation } from "react-router-dom";
 
 const containerVariants = {
   close: {
@@ -51,6 +60,7 @@ const divVariants = {
 
 const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(true);
+  const location = useLocation();
 
   const containerControls = useAnimationControls();
   const divControls = useAnimationControls();
@@ -92,11 +102,22 @@ const Sidebar = () => {
         </button>
       </div>
       <div className="flex flex-col gap-3">
-        <SidebarLink name="Search" path="#">
+        <SidebarLink name="Search" path="#" active={location.pathname === "#"}>
           <Search className="stroke-inherit stroke-[0.75] min-w-8 w-8" />
         </SidebarLink>
-        <SidebarLink name="Home" path="" active>
+        <SidebarLink
+          name="Home"
+          path=""
+          active={location.pathname === "/dashboard"}
+        >
           <Home className="stroke-inherit stroke-[0.75] min-w-8 w-8" />
+        </SidebarLink>
+        <SidebarLink
+          name="Diaries"
+          path="diary"
+          active={location.pathname.includes("diary")}
+        >
+          <BookHeart className="stroke-inherit stroke-[0.75] min-w-8 w-8" />
         </SidebarLink>
         <UserProfile />
       </div>

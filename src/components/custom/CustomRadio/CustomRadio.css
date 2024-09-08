@@ -1,0 +1,26 @@
+.hidden-radio {
+    display: none;
+  }
+  
+  /* Style the options to look like regular selectable items */
+  .radio-option {
+    display: block;
+    padding: 10px;
+    margin: 5px 0;
+    background-color: #f4f4f4;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  /* Add styling for the selected option */
+  .radio-option.selected {
+    background-color: #007bff;
+    color: white;
+    border-color: #007bff;
+  }
+  
+  /* Hover state */
+  .radio-option:hover {
+    background-color: #e6e6e6;
+  }
