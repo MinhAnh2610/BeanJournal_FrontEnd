@@ -1,8 +1,6 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 
-type Props = {};
-
-const DiaryEntryPage = (props: Props) => {
+const DiaryEntryPage = () => {
   useEffect(() => {
     console.log("DiaryEntryPage");
   });
