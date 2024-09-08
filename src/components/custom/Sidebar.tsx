@@ -92,10 +92,10 @@ const Sidebar = () => {
         </button>
       </div>
       <div className="flex flex-col gap-3">
-        <SidebarLink name="Search">
+        <SidebarLink name="Search" path="#">
           <Search className="stroke-inherit stroke-[0.75] min-w-8 w-8" />
         </SidebarLink>
-        <SidebarLink name="Home" active>
+        <SidebarLink name="Home" path="" active>
           <Home className="stroke-inherit stroke-[0.75] min-w-8 w-8" />
         </SidebarLink>
         <UserProfile />

@@ -19,7 +19,7 @@ const UserProfile = () => {
   return (
     <>
       <div onClick={onOpen}>
-        <SidebarLink name="Settings">
+        <SidebarLink name="Settings" path="#">
           <Settings className="stroke-inherit stroke-[0.75] min-w-8 w-8" />
         </SidebarLink>
       </div>
