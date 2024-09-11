@@ -18,8 +18,8 @@ import { useAuth } from "@/context/useAuth";
 const formSchema = z.object({
   userName: z.string().nonempty(),
   email: z.string().email().nonempty(),
-  password: z.string().nonempty(),
-  confirmPassword: z.string().nonempty(),
+  password: z.string().min(5),
+  confirmPassword: z.string().min(5),
 });
 
 const RegisterPage = () => {

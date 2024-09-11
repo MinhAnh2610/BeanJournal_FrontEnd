@@ -17,8 +17,8 @@ import { useAuth } from "@/context/useAuth";
 import { useLocation } from "react-router";
 
 const formSchema = z.object({
-  password: z.string().nonempty(),
-  confirmPassword: z.string().nonempty(),
+  password: z.string().min(5),
+  confirmPassword: z.string().min(5),
 });
 
 const ResetPasswordPage = () => {

@@ -125,6 +125,7 @@ export const UserProvider = ({ children }: Props) => {
         }
       })
       .catch(() => toast.warning("Server error occurred"));
+    navigate("/login");
   };
 
   const isLoggedIn = () => {
