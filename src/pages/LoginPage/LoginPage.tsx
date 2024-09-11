@@ -126,7 +126,7 @@ const LoginPage = () => {
                 type="submit"
                 isLoading={isLoading}
               >
-                {isLoading ? "Loading..." : "Login"}
+                {isLoading ? "Logging in..." : "Login"}
               </Button>
             </form>
           </Form>

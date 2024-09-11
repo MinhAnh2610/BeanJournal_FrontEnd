@@ -36,3 +36,35 @@ export const registerAPI = async (
     handleError(error);
   }
 };
+
+export const forgotPasswordAPI = async (email: string) => {
+  try {
+    const data = await axios.post(api + "forgot-password", {
+      email,
+    });
+    console.log(data);
+    return data;
+  } catch (error) {
+    handleError(error);
+  }
+};
+
+export const resetPasswordAPI = async (
+  token: string,
+  email: string,
+  password: string,
+  confirmPassword: string
+) => {
+  try {
+    const data = await axios.post(api + "reset-password", {
+      token,
+      email,
+      password,
+      confirmPassword,
+    });
+    console.log(data);
+    return data;
+  } catch (error) {
+    handleError(error);
+  }
+};

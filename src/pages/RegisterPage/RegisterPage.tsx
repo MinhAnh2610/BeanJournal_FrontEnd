@@ -156,7 +156,7 @@ const RegisterPage = () => {
                 type="submit"
                 isLoading={isLoading}
               >
-                {isLoading ? "Loading..." : "Sign up"}
+                {isLoading ? "Signing up..." : "Sign up"}
               </Button>
             </form>
           </Form>

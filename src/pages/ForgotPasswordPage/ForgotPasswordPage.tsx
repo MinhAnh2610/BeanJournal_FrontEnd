@@ -14,12 +14,18 @@ import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { z } from "zod";
 import key from "../../assets/key.svg";
+import { useState } from "react";
+import { useAuth } from "@/context/useAuth";
 
 const formSchema = z.object({
   email: z.string().email().nonempty(),
 });
 
 const ForgotPasswordPage = () => {
+  const [isLoading, setIsLoading] = useState(false);
+
+  const { forgotPassword } = useAuth();
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -27,8 +33,14 @@ const ForgotPasswordPage = () => {
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    setIsLoading(true);
+    try {
+      await forgotPassword(values.email);
+    } catch (error) {
+    } finally {
+      setIsLoading(false);
+    }
   }
 
   return (
@@ -66,8 +78,9 @@ const ForgotPasswordPage = () => {
               <Button
                 className="bg-colour-lavender w-full text-colour-indigo"
                 type="submit"
+                isLoading={isLoading}
               >
-                Send
+                {isLoading ? "Sending..." : "Send"}
               </Button>
               <div className="flex justify-center">
                 <Link

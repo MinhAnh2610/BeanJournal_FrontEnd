@@ -1,7 +1,11 @@
 import { useNavigate } from "react-router-dom";
 import { UserProfile } from "../models/User";
 import { createContext, useEffect, useState } from "react";
-import { loginAPI, registerAPI } from "../services/AuthService";
+import {
+  forgotPasswordAPI,
+  loginAPI,
+  registerAPI,
+} from "../services/AuthService";
 import { toast } from "sonner";
 import React from "react";
 import axios from "axios";
@@ -17,6 +21,13 @@ type UserContextType = {
     confirmPassword: string
   ) => void;
   loginUser: (username: string, password: string) => void;
+  forgotPassword: (email: string) => void;
+  resetPassword: (
+    token: string,
+    email: string,
+    password: string,
+    confirmPassword: string
+  ) => void;
   logout: () => void;
   isLoggedIn: () => boolean;
 };
@@ -90,6 +101,31 @@ export const UserProvider = ({ children }: Props) => {
       .catch(() => toast.warning("Server error occurred"));
   };
 
+  const forgotPassword = async (email: string) => {
+    await forgotPasswordAPI(email)
+      .then((res: any) => {
+        if (res) {
+          toast.success(res?.data);
+        }
+      })
+      .catch(() => toast.warning("Server error occurred"));
+  };
+
+  const resetPassword = async (
+    token: string,
+    email: string,
+    password: string,
+    confirmPassword: string
+  ) => {
+    await registerAPI(token, email, password, confirmPassword)
+      .then((res: any) => {
+        if (res) {
+          toast.success(res?.data);
+        }
+      })
+      .catch(() => toast.warning("Server error occurred"));
+  };
+
   const isLoggedIn = () => {
     return !!user;
   };
@@ -114,6 +150,8 @@ export const UserProvider = ({ children }: Props) => {
         logout,
         isLoggedIn,
         registerUser,
+        forgotPassword,
+        resetPassword,
       }}
     >
       {isReady ? children : null}

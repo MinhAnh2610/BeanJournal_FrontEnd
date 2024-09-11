@@ -12,6 +12,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import key from "../../assets/key.svg";
+import { useEffect, useState } from "react";
+import { useAuth } from "@/context/useAuth";
+import { useLocation } from "react-router";
 
 const formSchema = z.object({
   password: z.string().nonempty(),
@@ -19,6 +22,18 @@ const formSchema = z.object({
 });
 
 const ResetPasswordPage = () => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [token, setToken] = useState("");
+  const [email, setEmail] = useState("");
+
+  const { resetPassword } = useAuth();
+  const location = useLocation();
+  const query = new URLSearchParams(location.search);
+  useEffect(() => {
+    setToken(query.get("token") || "");
+    setEmail(query.get("email") || "");
+  }, []);
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(
       formSchema.refine((data) => data.password === data.confirmPassword, {
@@ -32,8 +47,14 @@ const ResetPasswordPage = () => {
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    setIsLoading(true);
+    try {
+      resetPassword(token, email, values.password, values.confirmPassword);
+    } catch (error) {
+    } finally {
+      setIsLoading(false);
+    }
   }
 
   return (
@@ -92,8 +113,9 @@ const ResetPasswordPage = () => {
               <Button
                 className="bg-colour-lavender w-full text-colour-indigo"
                 type="submit"
+                isLoading={isLoading}
               >
-                Reset
+                {isLoading ? "Sending..." : "Send"}
               </Button>
             </form>
           </Form>
