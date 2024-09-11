@@ -5,6 +5,7 @@ import {
   forgotPasswordAPI,
   loginAPI,
   registerAPI,
+  resetPasswordAPI,
 } from "../services/AuthService";
 import { toast } from "sonner";
 import React from "react";
@@ -117,7 +118,7 @@ export const UserProvider = ({ children }: Props) => {
     password: string,
     confirmPassword: string
   ) => {
-    await registerAPI(token, email, password, confirmPassword)
+    await resetPasswordAPI(token, email, password, confirmPassword)
       .then((res: any) => {
         if (res) {
           toast.success(res?.data);
