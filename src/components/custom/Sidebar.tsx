@@ -1,13 +1,5 @@
 import { motion, useAnimationControls } from "framer-motion";
-import {
-  Activity,
-  BookHeart,
-  Home,
-  Leaf,
-  PanelLeft,
-  Rainbow,
-  Search,
-} from "lucide-react";
+import { BookHeart, Home, PanelLeft, Search } from "lucide-react";
 import { useEffect, useState } from "react";
 import SidebarLink from "./SidebarLink";
 import Logo from "./Logo";
@@ -15,6 +7,10 @@ import { Button, User } from "@nextui-org/react";
 import DropdownIcon from "./Dropdown";
 import UserProfile from "./UserProfile";
 import { useLocation } from "react-router-dom";
+import { getTagsAPI } from "@/services/TagService";
+import { TagGet } from "@/models/Tag";
+import { toast } from "sonner";
+import { useAuth } from "@/context/useAuth";
 
 const containerVariants = {
   close: {
@@ -59,11 +55,24 @@ const divVariants = {
 };
 
 const Sidebar = () => {
+  const [tags, setTags] = useState<TagGet[]>([]);
+  const { user } = useAuth();
+
   const [isOpen, setIsOpen] = useState(true);
   const location = useLocation();
 
   const containerControls = useAnimationControls();
   const divControls = useAnimationControls();
+
+  useEffect(() => {
+    const storedTags = sessionStorage.getItem("tags");
+
+    if (storedTags) {
+      setTags(JSON.parse(storedTags));
+    } else {
+      getTags();
+    }
+  }, []);
 
   useEffect(() => {
     if (isOpen) {
@@ -77,6 +86,19 @@ const Sidebar = () => {
 
   const handleOpenClose = () => {
     setIsOpen(!isOpen);
+  };
+
+  const getTags = async () => {
+    await getTagsAPI()
+      .then((res) => {
+        if (res?.data) {
+          setTags(res.data);
+          sessionStorage.setItem("tags", JSON.stringify(res.data));
+        }
+      })
+      .catch((err) => {
+        toast.error(err);
+      });
   };
 
   return (
@@ -119,7 +141,7 @@ const Sidebar = () => {
         >
           <BookHeart className="stroke-inherit stroke-[0.75] min-w-8 w-8" />
         </SidebarLink>
-        <UserProfile />
+        <UserProfile user={user} />
       </div>
       <div className="flex flex-col gap-4">
         <p
@@ -130,31 +152,20 @@ const Sidebar = () => {
           Trending Tags
         </p>
         <div className="flex flex-wrap gap-2">
-          <Button
-            variant="bordered"
-            isIconOnly={!isOpen}
-            className="rounded-full text-lg text-gray-500 p-2"
-          >
-            <Rainbow /> {isOpen && "Study"}
-          </Button>
-          <Button
-            variant="bordered"
-            isIconOnly={!isOpen}
-            className="rounded-full text-lg text-gray-500 p-2"
-          >
-            <Activity /> {isOpen && "Fitness"}
-          </Button>
-          <Button
-            variant="bordered"
-            isIconOnly={!isOpen}
-            className="rounded-full text-lg text-gray-500 p-2"
-          >
-            <Leaf /> {isOpen && "Nature"}
-          </Button>
+          {tags.map((tag, index) => (
+            <Button
+              key={index}
+              variant="bordered"
+              isIconOnly={!isOpen}
+              className="rounded-full text-lg text-gray-500 p-2"
+            >
+              <img className="w-6 h-6" src={tag.iconUrl} /> {isOpen && tag.name}
+            </Button>
+          ))}
         </div>
       </div>
       <div className="flex place-items-center justify-between border-t pt-5 border-gray-300 min-h-12 w-full overflow-hidden mt-auto">
-        <User name="Soybean" description="soybean@example.com" />
+        <User name={user?.userName} description={user?.email} />
         <DropdownIcon />
       </div>
     </motion.nav>

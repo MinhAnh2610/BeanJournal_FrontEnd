@@ -13,7 +13,11 @@ import { CircleUser, Search, Settings, X } from "lucide-react";
 import SidebarLink from "./SidebarLink";
 import UnitedKingdomIcon from "./UnitedKingdomIcon";
 
-const UserProfile = () => {
+type Props = {
+  user: any;
+};
+
+const UserProfile = ({ user } : Props) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
@@ -85,7 +89,7 @@ const UserProfile = () => {
                     </h1>
                     <Input
                       type="text"
-                      label="Soybean"
+                      label={user.userName}
                       variant="bordered"
                       className="w-full py-2"
                     />
@@ -94,7 +98,7 @@ const UserProfile = () => {
                     </h1>
                     <Input
                       type="email"
-                      label="soybean@example.com"
+                      label={user.email}
                       variant="bordered"
                       className="w-full py-2"
                     />

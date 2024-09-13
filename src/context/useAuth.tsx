@@ -136,6 +136,7 @@ export const UserProvider = ({ children }: Props) => {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
     localStorage.removeItem("refreshToken");
+    sessionStorage.clear();
     setUser(null);
     setToken("");
     setRefreshToken("");
