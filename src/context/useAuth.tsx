@@ -53,7 +53,7 @@ export const UserProvider = ({ children }: Props) => {
       axios.defaults.headers.common["Authorization"] = "Bearer " + token;
     }
     setIsReady(true);
-  }, [token]);
+  }, []);
 
   const registerUser = async (
     username: string,
@@ -74,6 +74,7 @@ export const UserProvider = ({ children }: Props) => {
           setToken(res?.data.token!);
           setRefreshToken(res?.data.refreshToken!);
           setUser(userObj!);
+          axios.defaults.headers.common["Authorization"] = "Bearer " + token;
           toast.success("Login Success!");
           navigate("/dashboard");
         }
@@ -95,6 +96,7 @@ export const UserProvider = ({ children }: Props) => {
           setToken(res?.data.token!);
           setRefreshToken(res?.data.refreshToken!);
           setUser(userObj!);
+          axios.defaults.headers.common["Authorization"] = "Bearer " + token;
           toast.success("Login Success!");
           navigate("/dashboard");
         }
