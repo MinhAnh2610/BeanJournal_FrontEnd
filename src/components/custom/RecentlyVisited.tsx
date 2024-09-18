@@ -49,8 +49,6 @@ const RecentlyVisited = () => {
       <Carousel
         plugins={[plugin.current]}
         className="w-full max-w-screen"
-        // onMouseEnter={plugin.current.stop}
-        // onMouseLeave={plugin.current.reset}
       >
         {loading ? (
           <CarouselContent className="-ml-8">

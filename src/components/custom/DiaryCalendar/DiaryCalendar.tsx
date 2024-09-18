@@ -4,46 +4,48 @@ import { createViewMonthGrid } from "@schedule-x/calendar";
 
 import "@schedule-x/theme-default/dist/index.css";
 import "../DiaryCalendar/DiaryCalendar.css";
+import { GetDiaryEntriesAPI } from "@/services/DiaryEntryService";
+import { toast } from "sonner";
+import { EventGet } from "@/models/Event";
+import { DiaryEntryGet } from "@/models/DiaryEntry";
 
 const DiaryCalendar = () => {
-  const [selectedDate, setSelectedDate] = useState("2024-09-07");
-  const [events, setEvents] = useState([
-    {
-      id: "1",
-      title: "My new event",
-      start: "2024-09-09",
-      end: "2024-09-09",
-    },
-    {
-      id: "2",
-      title: "My new event",
-      start: "2024-09-07",
-      end: "2024-09-07",
-    },
-    {
-      id: "3",
-      title: "My new event",
-      start: "2024-09-08",
-      end: "2024-09-08",
-    },
-    {
-      id: "4",
-      title: "My new event",
-      start: "2024-09-10",
-      end: "2024-09-10",
-    },
-  ]);
+  const [diaries, setDiaries] = useState<DiaryEntryGet[]>([]);
+  const [events, setEvents] = useState<EventGet[]>([]);
+
+  const getDiaries = async () => {
+    await GetDiaryEntriesAPI()
+      .then((res) => {
+        if (res?.data) {
+          setDiaries(res.data);
+        }
+      })
+      .catch((err) => {
+        toast.error(err);
+      });
+  };
+
+  useEffect(() => {
+    getDiaries();
+  }, []);
+
+  useEffect(() => {
+    setEvents(
+      diaries.map((diary) => {
+        return {
+          id: diary.entryId,
+          title: diary.title,
+          start: diary.createdAt,
+          end: diary.updatedAt,
+        };
+      })
+    );
+  }, [diaries]);
 
   const calendar = useCalendarApp({
     views: [createViewMonthGrid()],
-    events,
-    selectedDate,
+    events: events,
   });
-
-  useEffect(() => {
-    setEvents([]);
-    setSelectedDate("2024-09-07");
-  }, []);
 
   return (
     <div>
@@ -53,4 +55,3 @@ const DiaryCalendar = () => {
 };
 
 export default DiaryCalendar;
-

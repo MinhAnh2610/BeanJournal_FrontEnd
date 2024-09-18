@@ -2,12 +2,12 @@ import { MediaAttachmentGet } from "./MediaAttachment";
 import { TagGet } from "./Tag";
 
 export type DiaryEntryGet = {
-    entryId: string;
+    entryId: number;
     title: string;
     content: string;
     mood: string;
-    created_at: Date;
-    updated_at: Date;
+    createdAt: string;
+    updatedAt: string;
     tags: TagGet[];
     mediaAttachments: MediaAttachmentGet[];
 };
