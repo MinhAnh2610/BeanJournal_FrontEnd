@@ -1,10 +1,12 @@
 import axios from "axios";
 
-const token = localStorage.getItem("token");
+const token = localStorage.getItem("token") || null;
 
-export const axiosInstance = axios.create({
+const axiosInstance = axios.create({
   baseURL: "https://beanjournal.azurewebsites.net/api",
   headers: {
     Authorization: `Bearer ${token}`,
   },
 });
+
+export default axiosInstance;

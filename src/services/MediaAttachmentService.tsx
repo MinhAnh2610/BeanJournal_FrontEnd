@@ -1,4 +1,4 @@
-import { axiosInstance } from "@/helpers/AxiosInstance";
+import axiosInstance from "@/helpers/AxiosInstance";
 import { handleError } from "@/helpers/ErrorHandler";
 
 export const GetUserMediaAttachmentsAPI = async () => {

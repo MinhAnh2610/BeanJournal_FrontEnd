@@ -1,5 +1,5 @@
 import { handleError } from "@/helpers/ErrorHandler";
-import { axiosInstance } from "@/helpers/AxiosInstance";
+import axiosInstance from "@/helpers/AxiosInstance";
 import { UserProfileToken } from "@/models/User";
 
 export const loginAPI = async (email: string, password: string) => {
