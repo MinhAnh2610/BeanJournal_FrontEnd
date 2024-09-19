@@ -1,5 +1,5 @@
 export type EventGet = {
-    id: number,
+    id: string | number,
     title: string,
     start: string,
     end: string,

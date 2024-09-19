@@ -54,7 +54,7 @@ export const DashboardProvider = ({ children }: Props) => {
 
     if (storedTags) {
       setTags(JSON.parse(storedTags));
-      setDiaries(JSON.parse(storedDiaries!) || []);
+      setDiaries(JSON.parse(storedDiaries!));
     } else {
       getTags();
       getDiaries();
