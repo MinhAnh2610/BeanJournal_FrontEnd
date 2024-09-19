@@ -1,4 +1,11 @@
-import { Card, CardHeader, Skeleton, Image, CardBody, CardFooter } from "@nextui-org/react";
+import {
+  Card,
+  CardHeader,
+  Skeleton,
+  Image,
+  CardBody,
+  CardFooter,
+} from "@nextui-org/react";
 import Autoplay from "embla-carousel-autoplay";
 import {
   Carousel,
@@ -8,48 +15,21 @@ import {
   CarouselPrevious,
 } from "../ui/carousel";
 import { useEffect, useRef, useState } from "react";
-import { TagGet } from "@/models/Tag";
-import { getTagsAPI } from "@/services/TagService";
-import { toast } from "sonner";
+import { useDashboard } from "@/context/useDashboard";
 
 const RecentlyVisited = () => {
-  const [tags, setTags] = useState<TagGet[]>([]);
+  const { tags } = useDashboard();
+
   const [loading, setLoading] = useState(true);
   const plugin = useRef(Autoplay({ delay: 2000, stopOnInteraction: false }));
 
   useEffect(() => {
-    const storedTags = sessionStorage.getItem("tags");
-
-    if (storedTags) {
-      setTags(JSON.parse(storedTags));
-      setLoading(false);
-    } else {
-      setTimeout(() => {
-        getTags();
-        setLoading(false); // Data has been fetched, stop showing skeleton
-      }, 2000);
-    }
+    setLoading(false);
   }, []);
-
-  const getTags = async () => {
-    await getTagsAPI()
-      .then((res) => {
-        if (res?.data) {
-          setTags(res.data);
-          sessionStorage.setItem("tags", JSON.stringify(res.data));
-        }
-      })
-      .catch((err) => {
-        toast.error(err);
-      });
-  };
 
   return (
     <div>
-      <Carousel
-        plugins={[plugin.current]}
-        className="w-full max-w-screen"
-      >
+      <Carousel plugins={[plugin.current]} className="w-full max-w-screen">
         {loading ? (
           <CarouselContent className="-ml-8">
             {Array.from({ length: 10 }).map((_, index) => (

@@ -48,6 +48,7 @@ export const UserProvider = ({ children }: Props) => {
     const storedUser = localStorage.getItem("user");
     const storedToken = localStorage.getItem("token");
     const storedRefreshToken = localStorage.getItem("refreshToken");
+    
     if (storedUser && storedToken && storedRefreshToken) {
       setUser(JSON.parse(storedUser));
       setToken(storedToken);
@@ -76,7 +77,6 @@ export const UserProvider = ({ children }: Props) => {
           setToken(res?.data.token!);
           setRefreshToken(res?.data.refreshToken!);
           setUser(userObj!);
-          axios.defaults.headers.common["Authorization"] = "Bearer " + res.data.token;
           toast.success("Login Success!");
           navigate("/dashboard");
         }
@@ -98,7 +98,6 @@ export const UserProvider = ({ children }: Props) => {
           setToken(res?.data.token!);
           setRefreshToken(res?.data.refreshToken!);
           setUser(userObj!);
-          axios.defaults.headers.common["Authorization"] = "Bearer " + res.data.token;
           toast.success("Login Success!");
           navigate("/dashboard");
         }

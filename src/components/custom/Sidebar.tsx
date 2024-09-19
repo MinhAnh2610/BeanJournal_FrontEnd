@@ -7,10 +7,8 @@ import { Button, User } from "@nextui-org/react";
 import DropdownIcon from "./Dropdown";
 import UserProfile from "./UserProfile";
 import { useLocation } from "react-router-dom";
-import { getTagsAPI } from "@/services/TagService";
-import { TagGet } from "@/models/Tag";
-import { toast } from "sonner";
 import { useAuth } from "@/context/useAuth";
+import { useDashboard } from "@/context/useDashboard";
 
 const containerVariants = {
   close: {
@@ -55,24 +53,14 @@ const divVariants = {
 };
 
 const Sidebar = () => {
-  const [tags, setTags] = useState<TagGet[]>([]);
   const { user } = useAuth();
+  const { tags } = useDashboard();
 
   const [isOpen, setIsOpen] = useState(true);
   const location = useLocation();
 
   const containerControls = useAnimationControls();
   const divControls = useAnimationControls();
-
-  useEffect(() => {
-    const storedTags = sessionStorage.getItem("tags");
-
-    if (storedTags) {
-      setTags(JSON.parse(storedTags));
-    } else {
-      getTags();
-    }
-  }, []);
 
   useEffect(() => {
     if (isOpen) {
@@ -86,19 +74,6 @@ const Sidebar = () => {
 
   const handleOpenClose = () => {
     setIsOpen(!isOpen);
-  };
-
-  const getTags = async () => {
-    await getTagsAPI()
-      .then((res) => {
-        if (res?.data) {
-          setTags(res.data);
-          sessionStorage.setItem("tags", JSON.stringify(res.data));
-        }
-      })
-      .catch((err) => {
-        toast.error(err);
-      });
   };
 
   return (

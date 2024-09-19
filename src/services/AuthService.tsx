@@ -1,12 +1,10 @@
 import { handleError } from "@/helpers/ErrorHandler";
+import { axiosInstance } from "@/helpers/AxiosInstance";
 import { UserProfileToken } from "@/models/User";
-import axios from "axios";
-
-const api = "https://beanjournal.azurewebsites.net/api/account/";
 
 export const loginAPI = async (email: string, password: string) => {
   try {
-    const data = await axios.post<UserProfileToken>(api + "login", {
+    const data = await axiosInstance.post<UserProfileToken>("/account/login", {
       email,
       password,
     });
@@ -24,7 +22,7 @@ export const registerAPI = async (
   confirmPassword: string
 ) => {
   try {
-    const data = await axios.post<UserProfileToken>(api + "register", {
+    const data = await axiosInstance.post<UserProfileToken>("/account/register", {
       username,
       email,
       password,
@@ -39,7 +37,7 @@ export const registerAPI = async (
 
 export const forgotPasswordAPI = async (email: string) => {
   try {
-    const data = await axios.post(api + "forgot-password", {
+    const data = await axiosInstance.post("/account/forgot-password", {
       email,
     });
     console.log(data);
@@ -56,7 +54,7 @@ export const resetPasswordAPI = async (
   confirmPassword: string
 ) => {
   try {
-    const data = await axios.post(api + "reset-password", {
+    const data = await axiosInstance.post("/account/reset-password", {
       token,
       email,
       password,
