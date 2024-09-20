@@ -12,7 +12,6 @@ import { Clock, Hash, Trash2 } from "lucide-react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import MoodPicker from "../MoodPicker";
 
 const formSchema = z.object({
   title: z.string().nonempty(),
@@ -48,7 +47,7 @@ const DiaryPlayground = () => {
       <div className="grid grid-flow-row grid-cols-12 items-center">
         <div className="col-span-11">
           <div className="pb-4">
-            <h1 className="flex items-center font-semibold text-4xl text-purple-950">
+            <h1 className="flex items-center font-semibold text-3xl text-purple-950">
               <Hash className="w-6 h-6 text-gray-500 mr-4" /> Fitness / Everyday
               activity
             </h1>
@@ -57,7 +56,7 @@ const DiaryPlayground = () => {
             <p className="flex items-center gap-2 text-lg font-semibold text-gray-400">
               <Clock className="w-6 h-6 text-gray-500" /> Latest update
             </p>
-            <p className="text-lg font-semibold text-purple-950 pl-48">
+            <p className="text-lg font-semibold text-purple-950 pl-24">
               Aug 08 2024
             </p>
           </div>
@@ -68,22 +67,10 @@ const DiaryPlayground = () => {
           </Button>
         </div>
       </div>
-      <Divider className="my-6" />
+      <Divider className="my-4" />
       <div>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="w-full">
-            <FormField
-              control={form.control}
-              name="mood"
-              render={() => (
-                <FormItem>
-                  <FormControl>
-                    <MoodPicker />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
             <FormField
               control={form.control}
               name="title"
@@ -94,14 +81,33 @@ const DiaryPlayground = () => {
                       type="text"
                       {...field}
                       placeholder="Your diary title..."
-                      className="bg-transparent border-none focus:border-none text-5xl font-bold shadow-none h-20 text-purple-950"
+                      className="bg-transparent border-none focus:border-none text-4xl font-bold shadow-none h-20 text-gray-800"
                     />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
-            <Divider className="my-6" />
+            <Divider className="mt-4 mb-8" />
+            <div className="bg-colour-lavender rounded-lg flex items-center mb-8">
+              <FormField
+                control={form.control}
+                name="mood"
+                render={({ field }) => (
+                  <FormItem className="rounded-sm border-l-4 border-l-colour-indigo">
+                    <FormControl>
+                      <Input
+                        type="text"
+                        {...field}
+                        placeholder="What's your mood today..."
+                        className="h-16 bg-transparent border-none focus:border-none text-2xl font-bold shadow-none text-gray-800"
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
             <FormField
               control={form.control}
               name="content"
@@ -117,23 +123,7 @@ const DiaryPlayground = () => {
                       height={300}
                       minRows={12}
                       maxRows={100}
-                      className="text-md font-bold shadow-none text-gray-500"
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="title"
-              render={({ field }) => (
-                <FormItem>
-                  <FormControl>
-                    <Input
-                      type="file"
-                      {...field}
-                      className="bg-transparent focus:border-none font-bold"
+                      className="shadow-none text-gray-500"
                     />
                   </FormControl>
                   <FormMessage />

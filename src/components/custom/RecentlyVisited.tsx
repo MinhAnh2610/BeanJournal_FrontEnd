@@ -1,4 +1,4 @@
-import { Card, Skeleton } from "@nextui-org/react";
+import { Button, Card, Skeleton } from "@nextui-org/react";
 import Autoplay from "embla-carousel-autoplay";
 import {
   Carousel,
@@ -31,7 +31,7 @@ const RecentlyVisited = () => {
             {Array.from({ length: 10 }).map((_, index) => (
               <CarouselItem key={index} className="pl-8 basis-1/6">
                 <div className="p-1">
-                  <Card className="flex flex-col gap-3 shadow-none border p-4">
+                  <Card className="flex flex-col gap-3 shadow-none border-medium p-4">
                     <Skeleton isLoaded className="rounded-lg">
                       <div className="h-24 rounded-lg bg-secondary-100"></div>
                     </Skeleton>
@@ -56,25 +56,27 @@ const RecentlyVisited = () => {
             {tags.map((tag, index) => (
               <CarouselItem key={index} className="pl-8 basis-52">
                 <div className="p-1">
-                  <Card className="shadow border">
-                    <CardMedia
-                      sx={{ height: 80 }}
-                      image={tag.imageUrl}
-                      title={tag.name}
-                    />
-                    <div className="-mt-5 ml-5 mb-6">
-                      <img src={tag.iconUrl} className="absolute  h-10 w-10" />
-                    </div>
-                    <CardContent>
-                      <Typography
-                        variant="h6"
-                        component="div"
-                        className="font-semibold"
-                      >
-                        {tag.name}
-                      </Typography>
-                    </CardContent>
-                  </Card>
+                  <Button isIconOnly className="w-full h-full rounded-3xl">
+                    <Card className="shadow border-medium w-full rounded-3xl">
+                      <CardMedia
+                        sx={{ height: 80 }}
+                        image={tag.imageUrl}
+                        title={tag.name}
+                      />
+                      <div className="-mt-4 ml-4 mb-6">
+                        <img src={tag.iconUrl} className="absolute h-8 w-8" />
+                      </div>
+                      <CardContent>
+                        <Typography
+                          variant="h6"
+                          component="div"
+                          className="font-semibold text-left text-gray-700"
+                        >
+                          {tag.name}
+                        </Typography>
+                      </CardContent>
+                    </Card>
+                  </Button>
                 </div>
               </CarouselItem>
             ))}

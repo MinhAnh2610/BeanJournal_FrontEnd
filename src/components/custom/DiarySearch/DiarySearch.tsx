@@ -4,7 +4,7 @@ import { Plus } from "lucide-react";
 
 const DiarySearch = () => {
   return (
-    <div className="h-screen bg-stone-200 p-4 flex flex-col gap-4 fixed">
+    <div className="h-screen bg-gray-100 p-4 flex flex-col gap-4 fixed">
       <Input label={<SearchIcon />} size="sm" />
       <div className="flex justify-between items-center">
         <p className="text-md font-semibold text-gray-400">My diaries</p>
