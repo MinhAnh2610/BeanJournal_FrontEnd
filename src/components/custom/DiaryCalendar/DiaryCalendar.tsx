@@ -34,10 +34,10 @@ const DiaryCalendar = () => {
           <div className="px-1 py-2 w-80 space-y-2">
             <div className="text-xl font-bold text-colour-indigo">Mood: {event.mood}</div>
             <Divider/>
-            <div className="text-md font-semibold text-colour-indigo">{event.content}</div>
+            <div className="text-md font-semibold text-gray-600">{event.content}</div>
             <Divider/>
             <div className="flex justify-end">
-              <Button className="text-white bg-colour-indigo font-semibold">
+              <Button className="text-colour-indigo bg-colour-lavender font-semibold">
                 Go to diary
               </Button>
             </div>

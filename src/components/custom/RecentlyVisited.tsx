@@ -20,7 +20,9 @@ const RecentlyVisited = () => {
   const plugin = useRef(Autoplay({ delay: 2000, stopOnInteraction: false }));
 
   useEffect(() => {
-    setLoading(false);
+    if (tags) {
+      setLoading(false);
+    }
   }, []);
 
   return (

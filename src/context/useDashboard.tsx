@@ -2,7 +2,11 @@ import { DiaryEntryGet } from "@/models/DiaryEntry";
 import { TagGet } from "@/models/Tag";
 import { GetDiaryEntriesAPI } from "@/services/DiaryEntryService";
 import { getTagsAPI } from "@/services/TagService";
-import React, { createContext, useEffect, useState } from "react";
+import React, {
+  createContext,
+  useLayoutEffect,
+  useState,
+} from "react";
 import { toast } from "sonner";
 
 type DashboardContextType = {
@@ -27,7 +31,6 @@ export const DashboardProvider = ({ children }: Props) => {
       .then((res) => {
         if (res?.data) {
           setTags(res.data);
-          sessionStorage.setItem("tags", JSON.stringify(res.data));
         }
       })
       .catch((err) => {
@@ -40,7 +43,6 @@ export const DashboardProvider = ({ children }: Props) => {
       .then((res) => {
         if (res?.data) {
           setDiaries(res.data);
-          sessionStorage.setItem("diaries", JSON.stringify(res.data));
         }
       })
       .catch((err) => {
@@ -48,17 +50,9 @@ export const DashboardProvider = ({ children }: Props) => {
       });
   };
 
-  useEffect(() => {
-    const storedTags = sessionStorage.getItem("tags");
-    const storedDiaries = sessionStorage.getItem("diaries");
-
-    if (storedTags) {
-      setTags(JSON.parse(storedTags));
-      setDiaries(JSON.parse(storedDiaries!));
-    } else {
-      getTags();
-      getDiaries();
-    }
+  useLayoutEffect(() => {
+    getTags();
+    getDiaries();
   }, []);
 
   return (
