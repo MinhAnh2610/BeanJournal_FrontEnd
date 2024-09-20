@@ -1,11 +1,4 @@
-import {
-  Card,
-  CardHeader,
-  Skeleton,
-  Image,
-  CardBody,
-  CardFooter,
-} from "@nextui-org/react";
+import { Card, Skeleton } from "@nextui-org/react";
 import Autoplay from "embla-carousel-autoplay";
 import {
   Carousel,
@@ -16,6 +9,9 @@ import {
 } from "../ui/carousel";
 import { useEffect, useRef, useState } from "react";
 import { useDashboard } from "@/context/useDashboard";
+import CardContent from "@mui/material/CardContent";
+import CardMedia from "@mui/material/CardMedia";
+import Typography from "@mui/material/Typography";
 
 const RecentlyVisited = () => {
   const { tags } = useDashboard();
@@ -58,18 +54,26 @@ const RecentlyVisited = () => {
         ) : (
           <CarouselContent className="-ml-8">
             {tags.map((tag, index) => (
-              <CarouselItem key={index} className="pl-8 basis-1/6">
+              <CarouselItem key={index} className="pl-8 basis-52">
                 <div className="p-1">
-                  <Card className="flex flex-col gap-3 shadow-none border p-0">
-                    <CardHeader className="">
-                      <Image src={tag.imageUrl} />
-                    </CardHeader>
-                    <CardBody>
-                      <img src={tag.iconUrl} height={30} width={30} />
-                    </CardBody>
-                    <CardFooter>
-                      <h2 className="text-lg font-bold">{tag.name}</h2>
-                    </CardFooter>
+                  <Card className="shadow border">
+                    <CardMedia
+                      sx={{ height: 80 }}
+                      image={tag.imageUrl}
+                      title={tag.name}
+                    />
+                    <div className="-mt-5 ml-5 mb-6">
+                      <img src={tag.iconUrl} className="absolute  h-10 w-10" />
+                    </div>
+                    <CardContent>
+                      <Typography
+                        variant="h6"
+                        component="div"
+                        className="font-semibold"
+                      >
+                        {tag.name}
+                      </Typography>
+                    </CardContent>
                   </Card>
                 </div>
               </CarouselItem>
