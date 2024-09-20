@@ -3,4 +3,6 @@ export type EventGet = {
     title: string,
     start: string,
     end: string,
+    mood: string,
+    content: string,
 }

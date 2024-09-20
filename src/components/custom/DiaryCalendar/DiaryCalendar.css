@@ -1,5 +1,13 @@
 .sx__month-grid-wrapper {
-    display: flex;
-    flex-flow: column;
-    min-height: 40em;
+  display: flex;
+  flex-flow: column;
+  min-height: 40em;
+}
+
+.rbc-event,
+.rbc-background-event {
+  z-index: 2;
+  border: none !important;
+  background: #EAD6FF !important;
+  border-radius: 10px !important;
 }
