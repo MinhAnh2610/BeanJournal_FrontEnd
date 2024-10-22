@@ -2,13 +2,14 @@ import { motion, useAnimationControls } from "framer-motion";
 import { BookHeart, Home, PanelLeft, Search } from "lucide-react";
 import { useEffect, useState } from "react";
 import SidebarLink from "./SidebarLink";
-import Logo from "./Logo";
+import Logo from "../Logo";
 import { Button, User } from "@nextui-org/react";
-import DropdownIcon from "./Dropdown";
-import UserProfile from "./UserProfile";
+import DropdownIcon from "../Dropdown";
+import UserProfile from "../UserProfile";
 import { useLocation } from "react-router-dom";
 import { useAuth } from "@/context/useAuth";
 import { useDashboard } from "@/context/useDashboard";
+import "./Sidebar.css";
 
 const containerVariants = {
   close: {
@@ -81,7 +82,7 @@ const Sidebar = () => {
       variants={containerVariants}
       animate={containerControls}
       initial="open"
-      className="bg-gray-100 flex flex-col z-10 gap-10 p-5 top-0 left-0 h-screen shadow sticky shadow-neutral-50"
+      className="flex flex-col z-10 gap-10 p-5 top-0 left-0 h-screen shadow sticky shadow-neutral-50"
     >
       <div className="flex flex-row w-full justify-between place-items-center h-10">
         <motion.div
@@ -126,7 +127,7 @@ const Sidebar = () => {
         >
           Trending Tags
         </p>
-        <div className="flex flex-wrap gap-2">
+        <div className="flex flex-wrap gap-2 overflow-y-scroll max-h-96">
           {tags.map((tag, index) => (
             <Button
               key={index}

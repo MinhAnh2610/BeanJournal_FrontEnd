@@ -27,7 +27,7 @@ const RecentlyVisited = () => {
 
   return (
     <div>
-      <Carousel plugins={[plugin.current]} className="w-full max-w-screen">
+      <Carousel plugins={[plugin.current]} className="w-full max-w-screen-xl">
         {loading ? (
           <CarouselContent className="-ml-8">
             {Array.from({ length: 10 }).map((_, index) => (

@@ -1,5 +1,5 @@
 import { Button, Card, CardBody, Input, Image } from "@nextui-org/react";
-import SearchIcon from "../SearchIcon";
+import SearchIcon from "../Sidebar/SearchIcon";
 import { Plus } from "lucide-react";
 
 const DiarySearch = () => {
