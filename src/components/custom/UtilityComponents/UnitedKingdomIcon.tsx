@@ -1,4 +1,4 @@
-import unitedKingdom from "../../assets/united-kingdom.svg";
+import unitedKingdom from "../../../assets/united-kingdom.svg";
 
 const UnitedKingdomIcon = () => {
   return (

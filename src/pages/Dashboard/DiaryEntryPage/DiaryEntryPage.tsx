@@ -1,5 +1,5 @@
-import DiarySearch from "@/components/custom/DiarySearch/DiarySearch";
-import DiaryPlayground from "../../../components/custom/DiaryPlayground/DiaryPlayground";
+import DiarySearch from "@/components/custom/DiaryComponents/DiarySearch/DiarySearch";
+import DiaryPlayground from "../../../components/custom/DiaryComponents/DiaryPlayground/DiaryPlayground";
 
 const DiaryEntryPage = () => {
   return (

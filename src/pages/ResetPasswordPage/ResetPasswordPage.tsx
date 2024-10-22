@@ -1,4 +1,4 @@
-import Logo from "@/components/custom/Logo";
+import Logo from "@/components/custom/UtilityComponents/Logo";
 import {
   Form,
   FormControl,

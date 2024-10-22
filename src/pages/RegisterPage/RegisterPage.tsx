@@ -11,7 +11,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { z } from "zod";
-import Logo from "@/components/custom/Logo";
+import Logo from "@/components/custom/UtilityComponents/Logo";
 import { useState } from "react";
 import { useAuth } from "@/context/useAuth";
 

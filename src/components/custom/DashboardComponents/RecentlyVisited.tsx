@@ -6,7 +6,7 @@ import {
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
-} from "../ui/carousel";
+} from "../../ui/carousel";
 import { useEffect, useRef, useState } from "react";
 import { useDashboard } from "@/context/useDashboard";
 import CardContent from "@mui/material/CardContent";

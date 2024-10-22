@@ -1,6 +1,6 @@
-import DiaryCalendar from "@/components/custom/DiaryCalendar/DiaryCalendar";
-import RecentlyVisited from "@/components/custom/RecentlyVisited";
-import Weather from "@/components/custom/Weather";
+import DiaryCalendar from "@/components/custom/DiaryComponents/DiaryCalendar/DiaryCalendar";
+import RecentlyVisited from "@/components/custom/DashboardComponents/RecentlyVisited";
+import Weather from "@/components/custom/DashboardComponents/Weather";
 import { Clock, CalendarDays } from "lucide-react";
 
 const UserDashboard = () => {

@@ -10,8 +10,8 @@ import {
   Input,
 } from "@nextui-org/react";
 import { CircleUser, Search, Settings, X } from "lucide-react";
-import SidebarLink from "./Sidebar/SidebarLink";
-import UnitedKingdomIcon from "./UnitedKingdomIcon";
+import SidebarLink from "../SidebarComponents/SidebarLink";
+import UnitedKingdomIcon from "../UtilityComponents/UnitedKingdomIcon";
 
 type Props = {
   user: any;
