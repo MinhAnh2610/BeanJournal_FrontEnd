@@ -14,7 +14,6 @@ import axios from "axios";
 type UserContextType = {
   user: UserProfile | null;
   token: string | null;
-  refreshToken: string | null;
   registerUser: (
     username: string,
     email: string,
@@ -40,19 +39,16 @@ const UserContext = createContext<UserContextType>({} as UserContextType);
 export const UserProvider = ({ children }: Props) => {
   const navigate = useNavigate();
   const [token, setToken] = useState<string | null>(null);
-  const [refreshToken, setRefreshToken] = useState<string | null>(null);
   const [user, setUser] = useState<UserProfile | null>(null);
   const [isReady, setIsReady] = useState(false);
 
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
     const storedToken = localStorage.getItem("token");
-    const storedRefreshToken = localStorage.getItem("refreshToken");
 
-    if (storedUser && storedToken && storedRefreshToken) {
+    if (storedUser && storedToken) {
       setUser(JSON.parse(storedUser));
       setToken(storedToken);
-      setRefreshToken(storedRefreshToken);
       axios.defaults.headers.common["Authorization"] = "Bearer " + token;
     }
     setIsReady(true);
@@ -75,10 +71,7 @@ export const UserProvider = ({ children }: Props) => {
           };
           localStorage.setItem("user", JSON.stringify(userObj));
           setToken(res?.data.token!);
-          setRefreshToken(res?.data.refreshToken!);
           setUser(userObj!);
-          axios.defaults.headers.common["Authorization"] =
-            "Bearer " + res.data.token;
           toast.success("Login Success!");
           navigate("/dashboard");
         }
@@ -98,10 +91,7 @@ export const UserProvider = ({ children }: Props) => {
           };
           localStorage.setItem("user", JSON.stringify(userObj));
           setToken(res?.data.token!);
-          setRefreshToken(res?.data.refreshToken!);
           setUser(userObj!);
-          axios.defaults.headers.common["Authorization"] =
-            "Bearer " + res.data.token;
           toast.success("Login Success!");
           navigate("/dashboard");
         }
@@ -144,7 +134,6 @@ export const UserProvider = ({ children }: Props) => {
     sessionStorage.clear();
     setUser(null);
     setToken("");
-    setRefreshToken("");
     navigate("/");
   };
 
@@ -154,7 +143,6 @@ export const UserProvider = ({ children }: Props) => {
         loginUser,
         user,
         token,
-        refreshToken,
         logout,
         isLoggedIn,
         registerUser,

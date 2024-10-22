@@ -5,12 +5,10 @@ import { UserProvider } from "./context/useAuth";
 import { NextUIProvider } from "@nextui-org/react";
 import IntroPage from "./pages/IntroPage/IntroPage";
 import { useEffect, useRef, useState } from "react";
-// import TransitionPage from "./pages/TransitionPage/TransitionPage";
 
 function App() {
   const location = useLocation();
   const [showIntro, setShowIntro] = useState(location.pathname === "/");
-  // const [showTransition, setShowTransition] = useState(false);
 
   useEffect(() => {
     const handleLoad = () => {
@@ -24,18 +22,6 @@ function App() {
     };
   }, []);
 
-  // useEffect(() => {
-  //   const triggerTransition = () => {
-  //     setShowTransition(true);
-
-  //     setTimeout(() => {
-  //       setShowTransition(false);
-  //     }, 1000);
-  //   };
-
-  //   triggerTransition();
-  // }, [location.pathname]);
-
   const comp = useRef(null);
   return (
     <div className="relative" ref={comp}>
@@ -44,11 +30,6 @@ function App() {
           {showIntro && <IntroPage comp={comp} />}
           <Outlet />
           <Toaster />
-          {/* {showIntro ? (
-            <IntroPage comp={comp} />
-          ) : (
-            showTransition && <TransitionPage comp={comp} />
-          )} */}
         </UserProvider>
       </NextUIProvider>
     </div>

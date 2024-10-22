@@ -7,21 +7,22 @@ const IntroPage = ({ comp }: Props) => {
   useLayoutEffect(() => {
     let ctx = gsap.context(() => {
       const t1 = gsap.timeline();
-      t1.from(["#title-1", "#title-2", "#title-3"], {
-        opacity: 0,
-        y: "+=30",
-        stagger: 0.3,
-      })
-        .to(["#title-1", "#title-2", "#title-3"], {
-          opacity: 0,
-          y: "-=30",
-          delay: 0.1,
-          stagger: 0.2,
-        })
-        .to("#intro-slider", {
-          xPercent: -100,
-          duration: 0.7,
-        })
+      t1
+      // .from(["#title-1", "#title-2", "#title-3"], {
+      //   opacity: 0,
+      //   y: "+=30",
+      //   stagger: 0.3,
+      // })
+      //   .to(["#title-1", "#title-2", "#title-3"], {
+      //     opacity: 0,
+      //     y: "-=30",
+      //     delay: 0.1,
+      //     stagger: 0.2,
+      //   })
+      //   .to("#intro-slider", {
+      //     xPercent: -100,
+      //     duration: 0.7,
+      //   })
         .from("#logo", {
           opacity: 0,
           duration: 0.3,
@@ -89,7 +90,7 @@ const IntroPage = ({ comp }: Props) => {
 
   return (
     <>
-      <div
+      {/* <div
         id="intro-slider"
         className="h-screen bg-colour-lavender fixed top-0 left-0 z-50 w-full flex gap-5 justify-center lg:place-items-center tracking-tight pl-24 flex-col lg:flex-row lg:pl-0"
       >
@@ -111,7 +112,7 @@ const IntroPage = ({ comp }: Props) => {
         >
           Grow
         </h1>
-      </div>
+      </div> */}
       <div
         id="welcome-slider"
         className="h-screen bg-white fixed z-40 top-0 left-0 w-full flex justify-center place-items-center p-4"
