@@ -52,18 +52,18 @@ const NavigationBar = () => {
           <Logo />
         </NavbarBrand>
         <NavbarItem>
-          <Link color="foreground" className="text-colour-indigo" to="#">
-            Features
+          <Link color="foreground" className="text-colour-indigo" to="/contact">
+            Contact Us
           </Link>
         </NavbarItem>
         <NavbarItem isActive>
-          <Link to="#" className="text-colour-indigo" aria-current="page">
-            Customers
+          <Link to="/features" className="text-colour-indigo" aria-current="page">
+            Features
           </Link>
         </NavbarItem>
         <NavbarItem>
-          <Link color="foreground" className="text-colour-indigo" to="#">
-            Integrations
+          <Link color="foreground" className="text-colour-indigo" to="/about">
+            About Us
           </Link>
         </NavbarItem>
       </NavbarContent>

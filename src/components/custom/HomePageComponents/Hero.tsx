@@ -24,12 +24,14 @@ const Hero = () => {
             Get Started
           </Button>
         </Link>
-        <Button
-          className="font-semibold py-3 px-4 mx-3 rounded-md border"
-          variant="bordered"
-        >
-          Learn More
-        </Button>
+        <Link to="/features">
+          <Button
+            className="font-semibold py-3 px-4 mx-3 rounded-md border"
+            variant="bordered"
+          >
+            Learn More
+          </Button>
+        </Link>
       </div>
       <div className="flex my-20 justify-center gap-10">
         <Image

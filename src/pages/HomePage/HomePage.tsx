@@ -4,18 +4,21 @@ import Demo from "@/components/custom/HomePageComponents/Demo";
 import Testemonials from "@/components/custom/HomePageComponents/Testemonials";
 import Footer from "@/components/custom/HomePageComponents/Footer";
 import NavigationBar from "@/components/custom/HomePageComponents/NavigationBar";
+import SmoothScroll from "@/components/custom/UserComponents/SmoothScroll";
 
 const HomePage = () => {
   return (
-    <div>
-      <NavigationBar />
-      <div className="px-40">
-        <Hero />
-        <Feature />
-        <Demo />
-        <Testemonials />
-        <Footer />
-      </div>
+    <div id="smooth-wrapper">
+      <SmoothScroll>
+        <NavigationBar />
+        <div className="px-40">
+          <Hero />
+          <Feature />
+          <Demo />
+          <Testemonials />
+          <Footer />
+        </div>
+      </SmoothScroll>
     </div>
   );
 };
