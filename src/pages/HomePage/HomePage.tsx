@@ -9,7 +9,7 @@ const HomePage = () => {
   return (
     <div>
       <NavigationBar />
-      <div>
+      <div className="px-40">
         <Hero />
         <Feature />
         <Demo />
