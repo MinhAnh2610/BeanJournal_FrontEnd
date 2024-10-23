@@ -49,9 +49,9 @@ const IntroPage = ({ comp }: Props) => {
           },
           {
             strokeDashoffset: 0,
-            duration: 1.2,
+            duration: 1,
             ease: "power1.inOut",
-            stagger: 0.15,
+            stagger: 0.1,
           }
         )
         .fromTo(
@@ -82,7 +82,7 @@ const IntroPage = ({ comp }: Props) => {
         .to("#welcome-slider", {
           yPercent: -100,
           duration: 1,
-          delay: 0.7,
+          delay: 0.5,
         });
     }, comp);
     return () => ctx.revert();
@@ -115,7 +115,7 @@ const IntroPage = ({ comp }: Props) => {
       </div> */}
       <div
         id="welcome-slider"
-        className="h-screen bg-white fixed z-40 top-0 left-0 w-full flex justify-center place-items-center p-4"
+        className="h-screen bg-white fixed z-50 top-0 left-0 w-full flex justify-center place-items-center p-4"
       >
         <svg
           width="729"
