@@ -52,17 +52,17 @@ const NavigationBar = () => {
           <Logo />
         </NavbarBrand>
         <NavbarItem>
-          <Link color="foreground" to="#">
+          <Link color="foreground" className="text-colour-indigo" to="#">
             Features
           </Link>
         </NavbarItem>
         <NavbarItem isActive>
-          <Link to="#" aria-current="page">
+          <Link to="#" className="text-colour-indigo" aria-current="page">
             Customers
           </Link>
         </NavbarItem>
         <NavbarItem>
-          <Link color="foreground" to="#">
+          <Link color="foreground" className="text-colour-indigo" to="#">
             Integrations
           </Link>
         </NavbarItem>
@@ -102,11 +102,11 @@ const NavigationBar = () => {
       ) : (
         <NavbarContent justify="end">
           <NavbarItem className="lg:flex">
-            <Link to="/login">Login</Link>
+            <Link className="text-colour-indigo" to="/login">Login</Link>
           </NavbarItem>
           <NavbarItem>
             <Link to="/register">
-              <Button color="warning" variant="flat">
+              <Button className="bg-colour-indigo text-white" variant="flat">
                 Sign up
               </Button>
             </Link>
