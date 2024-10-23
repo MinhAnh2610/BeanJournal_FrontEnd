@@ -1,5 +1,7 @@
-import { Button } from "@nextui-org/react";
+import { Button, Image } from "@nextui-org/react";
 import { Link } from "react-router-dom";
+import printer from "../../../assets/printer.gif";
+import typing from "../../../assets/typing.gif";
 
 const Hero = () => {
   return (
@@ -28,6 +30,22 @@ const Hero = () => {
         >
           Learn More
         </Button>
+      </div>
+      <div className="flex my-20 justify-center gap-10">
+        <Image
+          isBlurred
+          height={300}
+          width={500}
+          src={printer}
+          className="rounded-lg border border-colour-indigo shadow-sm shadow-colour-peach mx-2 my-4"
+        />
+        <Image
+          isBlurred
+          height={300}
+          width={500}
+          src={typing}
+          className="rounded-lg border border-colour-indigo shadow-sm shadow-colour-peach mx-2 my-4"
+        />
       </div>
     </div>
   );
