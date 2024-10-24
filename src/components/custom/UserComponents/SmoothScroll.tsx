@@ -1,5 +1,6 @@
 import {
   motion,
+  useMotionValueEvent,
   useScroll,
   useSpring,
   useTransform,
@@ -7,6 +8,7 @@ import {
 import { ReactNode, useEffect, useRef, useState } from "react";
 
 const SmoothScroll: React.FC<{ children: ReactNode }> = ({ children }) => {
+  const [isLoading, setIsLoading] = useState(true);
   const containerRef = useRef<HTMLDivElement>(null);
   const [containerHeight, setContainerHeight] = useState(0);
   const [windowHeight, setWindowHeight] = useState(0);
@@ -35,6 +37,12 @@ const SmoothScroll: React.FC<{ children: ReactNode }> = ({ children }) => {
     restDelta: 0.001,
   });
 
+  useMotionValueEvent(smoothProgress, "change", (latest) => {
+    if (latest === 0) {
+      setIsLoading(false);
+    }
+  });
+
   const y = useTransform(smoothProgress, (value) => {
     return value * -(containerHeight - windowHeight);
   });
@@ -43,9 +51,9 @@ const SmoothScroll: React.FC<{ children: ReactNode }> = ({ children }) => {
     <>
       <div style={{ height: containerHeight }} />
       <motion.div
-        className="w-screen fixed top-0 flex flex-col"
+        className="w-screen fixed top-0 flex flex-col transition-opacity duration-100 ease-in-out"
         ref={containerRef}
-        style={{ y: y }}
+        style={{ y: isLoading ? 0 : y, opacity: isLoading ? 0 : 1 }}
       >
         {children}
       </motion.div>

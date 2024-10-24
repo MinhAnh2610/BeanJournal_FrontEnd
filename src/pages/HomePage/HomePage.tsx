@@ -9,8 +9,10 @@ import SmoothScroll from "@/components/custom/UserComponents/SmoothScroll";
 const HomePage = () => {
   return (
     <div id="smooth-wrapper">
-      <SmoothScroll>
+      <div className="w-full z-40 fixed top-0">
         <NavigationBar />
+      </div>
+      <SmoothScroll>
         <div className="px-40">
           <Hero />
           <Feature />

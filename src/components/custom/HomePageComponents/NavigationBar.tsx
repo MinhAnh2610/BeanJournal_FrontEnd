@@ -77,7 +77,7 @@ const NavigationBar = () => {
                 className="transition-transform"
                 color="secondary"
                 name={user.userName}
-                size="sm"
+                size="md"
               />
             </DropdownTrigger>
             <DropdownMenu aria-label="Profile Actions" variant="flat">
@@ -88,7 +88,7 @@ const NavigationBar = () => {
               <DropdownItem key="settings">My Settings</DropdownItem>
               <DropdownItem key="team_settings">Team Settings</DropdownItem>
               <DropdownItem key="analytics">Analytics</DropdownItem>
-              <DropdownItem key="system">System</DropdownItem>
+              <DropdownItem key="dashboard" href="/dashboard">Dashboard</DropdownItem>
               <DropdownItem key="configurations">Configurations</DropdownItem>
               <DropdownItem key="help_and_feedback">
                 Help & Feedback
