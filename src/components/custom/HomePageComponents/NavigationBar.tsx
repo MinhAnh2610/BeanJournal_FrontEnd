@@ -20,7 +20,7 @@ import { useAuth } from "@/context/useAuth";
 
 const NavigationBar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { user } = useAuth();
+  const { user, logout } = useAuth();
 
   const menuItems = [
     "Profile",
@@ -81,19 +81,17 @@ const NavigationBar = () => {
               />
             </DropdownTrigger>
             <DropdownMenu aria-label="Profile Actions" variant="flat">
-              <DropdownItem key="profile" className="h-14 gap-2">
+              <DropdownItem key="profile" className="h-14 gap-2" textValue="profile">
                 <p className="font-semibold">Signed in as</p>
                 <p className="font-semibold">{user.email}</p>
               </DropdownItem>
-              <DropdownItem key="settings">My Settings</DropdownItem>
-              <DropdownItem key="team_settings">Team Settings</DropdownItem>
-              <DropdownItem key="analytics">Analytics</DropdownItem>
-              <DropdownItem key="dashboard" href="/dashboard">Dashboard</DropdownItem>
-              <DropdownItem key="configurations">Configurations</DropdownItem>
-              <DropdownItem key="help_and_feedback">
+              <DropdownItem key="settings" textValue="settings">My Settings</DropdownItem>
+              <DropdownItem key="dashboard" textValue="profile" href="/dashboard">Dashboard</DropdownItem>
+              <DropdownItem key="configurations" textValue="configurations">Configurations</DropdownItem>
+              <DropdownItem key="help_and_feedback" textValue="help_and_feedback">
                 Help & Feedback
               </DropdownItem>
-              <DropdownItem key="logout" color="danger">
+              <DropdownItem key="logout" textValue="logout" color="danger" onClick={logout}>
                 Log Out
               </DropdownItem>
             </DropdownMenu>

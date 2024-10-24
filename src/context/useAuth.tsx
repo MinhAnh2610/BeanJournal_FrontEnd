@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { UserProfile } from "../models/User";
-import { createContext, useEffect, useState } from "react";
+import { createContext, useLayoutEffect, useState } from "react";
 import {
   forgotPasswordAPI,
   loginAPI,
@@ -9,11 +9,11 @@ import {
 } from "../services/AuthService";
 import { toast } from "sonner";
 import React from "react";
-import axios from "axios";
 
 type UserContextType = {
   user: UserProfile | null;
   token: string | null;
+  refreshToken: string | null;
   registerUser: (
     username: string,
     email: string,
@@ -39,17 +39,20 @@ const UserContext = createContext<UserContextType>({} as UserContextType);
 export const UserProvider = ({ children }: Props) => {
   const navigate = useNavigate();
   const [token, setToken] = useState<string | null>(null);
+  const [refreshToken, setRefreshToken] = useState<string | null>(null);
   const [user, setUser] = useState<UserProfile | null>(null);
   const [isReady, setIsReady] = useState(false);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const storedUser = localStorage.getItem("user");
     const storedToken = localStorage.getItem("token");
+    const storedRefreshToken = localStorage.getItem("refreshToken");
 
-    if (storedUser && storedToken) {
+    if (storedUser && storedToken && storedRefreshToken) {
       setUser(JSON.parse(storedUser));
       setToken(storedToken);
-      axios.defaults.headers.common["Authorization"] = "Bearer " + token;
+      setRefreshToken(storedRefreshToken);
+      // axios.defaults.headers.common["Authorization"] = "Bearer " + token;
     }
     setIsReady(true);
   }, []);
@@ -143,6 +146,7 @@ export const UserProvider = ({ children }: Props) => {
         loginUser,
         user,
         token,
+        refreshToken,
         logout,
         isLoggedIn,
         registerUser,

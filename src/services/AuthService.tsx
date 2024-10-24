@@ -22,12 +22,15 @@ export const registerAPI = async (
   confirmPassword: string
 ) => {
   try {
-    const data = await axiosInstance.post<UserProfileToken>("/account/register", {
-      username,
-      email,
-      password,
-      confirmPassword,
-    });
+    const data = await axiosInstance.post<UserProfileToken>(
+      "/account/register",
+      {
+        username,
+        email,
+        password,
+        confirmPassword,
+      }
+    );
     console.log(data);
     return data;
   } catch (error) {
@@ -59,6 +62,19 @@ export const resetPasswordAPI = async (
       email,
       password,
       confirmPassword,
+    });
+    console.log(data);
+    return data;
+  } catch (error) {
+    handleError(error);
+  }
+};
+
+export const refreshTokenAPI = async (token: string, refreshToken: string) => {
+  try {
+    const data = await axiosInstance.post("/account/generate-new-jwt-token", {
+      token,
+      refreshToken,
     });
     console.log(data);
     return data;
