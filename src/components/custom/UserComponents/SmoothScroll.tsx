@@ -1,6 +1,5 @@
 import {
   motion,
-  useMotionValueEvent,
   useScroll,
   useSpring,
   useTransform,
@@ -8,17 +7,14 @@ import {
 import { ReactNode, useEffect, useRef, useState } from "react";
 
 const SmoothScroll: React.FC<{ children: ReactNode }> = ({ children }) => {
-  const [isLoading, setIsLoading] = useState(true);
   const containerRef = useRef<HTMLDivElement>(null);
   const [containerHeight, setContainerHeight] = useState(0);
-  const [windowHeight, setWindowHeight] = useState(0);
 
   useEffect(() => {
     const handleResize = () => {
-      if (containerRef.current != null) {
+      if (containerRef.current) {
         setContainerHeight(containerRef.current.scrollHeight);
       }
-      setWindowHeight(window.innerHeight);
     };
 
     handleResize();
@@ -27,7 +23,7 @@ const SmoothScroll: React.FC<{ children: ReactNode }> = ({ children }) => {
     return () => {
       window.removeEventListener("resize", handleResize);
     };
-  }, [containerRef]);
+  }, [containerRef, children]);
 
   const { scrollYProgress } = useScroll();
   const smoothProgress = useSpring(scrollYProgress, {
@@ -37,23 +33,17 @@ const SmoothScroll: React.FC<{ children: ReactNode }> = ({ children }) => {
     restDelta: 0.001,
   });
 
-  useMotionValueEvent(smoothProgress, "change", (latest) => {
-    if (latest === 0) {
-      setIsLoading(false);
-    }
-  });
-
   const y = useTransform(smoothProgress, (value) => {
-    return value * -(containerHeight - windowHeight);
+    return value * -(containerHeight - window.innerHeight);
   });
 
   return (
     <>
       <div style={{ height: containerHeight }} />
       <motion.div
-        className="w-screen fixed top-0 flex flex-col transition-opacity duration-100 ease-in-out"
+        className="w-screen top-0 fixed flex flex-col"
+        style={{ y }}
         ref={containerRef}
-        style={{ y: isLoading ? 0 : y, opacity: isLoading ? 0 : 1 }}
       >
         {children}
       </motion.div>
