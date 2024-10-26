@@ -84,7 +84,7 @@ axiosInstance.interceptors.response.use(
         });
     }
 
-    if (error.response.status === 500) {
+    if (error.response.status === 400) {
       return handleError(error);
     }
 
