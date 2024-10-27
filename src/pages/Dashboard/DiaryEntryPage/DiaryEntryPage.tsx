@@ -3,7 +3,7 @@ import DiaryPlayground from "../../../components/custom/DiaryComponents/DiaryPla
 
 const DiaryEntryPage = () => {
   return (
-    <div className="grid grid-flow-row grid-cols-12">
+    <div className="grid grid-cols-12">
       <div className="col-span-2">
         <DiarySearch />
       </div>

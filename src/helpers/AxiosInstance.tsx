@@ -2,21 +2,17 @@ import { refreshTokenAPI } from "@/services/AuthService";
 import axios from "axios";
 import { toast } from "sonner";
 
-const token = localStorage.getItem("token") || "";
-const refreshToken = localStorage.getItem("refreshToken") || "";
-
 let failedQueue: any[] = [];
 let isRefreshing = false;
 
-const processQueue = (error: any) => {
+const processQueue = (error: any, token: string | null = null) => {
   failedQueue.forEach((prom) => {
     if (error) {
       prom.reject(error);
     } else {
-      prom.resolve();
+      prom.resolve(token);
     }
   });
-
   failedQueue = [];
 };
 
@@ -30,25 +26,23 @@ const axiosInstance = axios.create({
 
 axiosInstance.interceptors.request.use(
   (config) => {
+    const token = localStorage.getItem("token");
     if (token) {
-      config.headers.Authorization = "Bearer " + token;
+      config.headers.Authorization = `Bearer ${token}`;
     }
     return config;
   },
-  (error) => {
-    return Promise.reject(error);
-  }
+  (error) => Promise.reject(error)
 );
 
 axiosInstance.interceptors.response.use(
-  (response) => {
-    return response;
-  },
+  (response) => response,
   (error) => {
     const originalRequest = error.config;
     originalRequest.headers = JSON.parse(
       JSON.stringify(originalRequest.headers || {})
     );
+
     const handleError = (error: any) => {
       processQueue(error);
       toast.error("Please login");
@@ -56,26 +50,32 @@ axiosInstance.interceptors.response.use(
       return Promise.reject(error);
     };
 
-    if (refreshToken && error.response?.status === 401) {
+    if (error.response?.status === 401 && localStorage.getItem("refreshToken")) {
       if (isRefreshing) {
-        return new Promise(function (resolve, reject) {
+        return new Promise((resolve, reject) => {
           failedQueue.push({ resolve, reject });
         })
-          .then(() => {
+          .then((token) => {
+            originalRequest.headers.Authorization = `Bearer ${token}`;
             return axiosInstance(originalRequest);
           })
-          .catch((error) => {
-            return Promise.reject(error);
-          });
+          .catch((error) => Promise.reject(error));
       }
+
       isRefreshing = true;
-      return refreshTokenAPI(token, refreshToken)
+      return refreshTokenAPI(
+        localStorage.getItem("token") || "",
+        localStorage.getItem("refreshToken") || ""
+      )
         .then((res) => {
           if (res?.data) {
-            localStorage.setItem("token", res.data.token);
-            localStorage.setItem("refreshToken", res.data.refreshToken);
-            processQueue(null);
+            const newToken = res.data.token;
+            const newRefreshToken = res.data.refreshToken;
+            localStorage.setItem("token", newToken);
+            localStorage.setItem("refreshToken", newRefreshToken);
+            processQueue(null, newToken);
 
+            originalRequest.headers.Authorization = `Bearer ${newToken}`;
             return axiosInstance(originalRequest);
           }
         }, handleError)
@@ -84,7 +84,7 @@ axiosInstance.interceptors.response.use(
         });
     }
 
-    if (error.response.status === 400) {
+    if (error.response?.status === 400 || error.resonse?.status === 500) {
       return handleError(error);
     }
 

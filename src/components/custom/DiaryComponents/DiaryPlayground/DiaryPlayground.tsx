@@ -6,9 +6,18 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { useDashboard } from "@/context/useDashboard";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button, Divider, Textarea } from "@nextui-org/react";
-import { Check, Clock, Hash, Plus, Trash, Trash2 } from "lucide-react";
+import {
+  Check,
+  CircleCheck,
+  Clock,
+  Hash,
+  Plus,
+  Trash,
+  Trash2,
+} from "lucide-react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -21,10 +30,25 @@ interface UploadedFile {
 const formSchema = z.object({
   title: z.string().nonempty(),
   content: z.string().nonempty(),
-  mood: z.string().nonempty()
+  mood: z.string().nonempty(),
 });
 
 const DiaryPlayground = () => {
+  const { tags, addDiary } = useDashboard();
+
+  // State to track selected tags by their IDs
+  const [selectedTags, setSelectedTags] = useState<number[]>([]);
+
+  // Toggles the tag's selection state
+  const toggleTag = (tagId: number) => {
+    setSelectedTags(
+      (prevSelectedTags) =>
+        prevSelectedTags.includes(tagId)
+          ? prevSelectedTags.filter((id) => id !== tagId) // Deselect if already selected
+          : [...prevSelectedTags, tagId] // Select if not selected
+    );
+  };
+
   const [uploadedFiles, setUploadedFiles] = useState<UploadedFile[]>([]);
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -56,9 +80,12 @@ const DiaryPlayground = () => {
   async function onSubmit(values: z.infer<typeof formSchema>) {
     setIsLoading(true);
     try {
-      console.log(values);
-      console.log(uploadedFiles);
-      console.log(isLoading);
+      addDiary(
+        values.title,
+        values.content,
+        values.mood,
+        selectedTags
+      );
     } catch (error) {
     } finally {
       setIsLoading(false);
@@ -74,8 +101,16 @@ const DiaryPlayground = () => {
               <div className="col-span-11">
                 <div className="pb-4">
                   <h1 className="flex items-center font-semibold text-3xl text-purple-950">
-                    <Hash className="w-6 h-6 text-gray-500 mr-4" /> Fitness /
-                    Everyday activity
+                    <Hash className="w-6 h-6 text-gray-500 mr-4" />{" "}
+                    {
+                      (document.getElementById("titleText") as HTMLInputElement)
+                        ?.value
+                    }{" "}
+                    /{" "}
+                    {
+                      (document.getElementById("moodText") as HTMLInputElement)
+                        ?.value
+                    }
                   </h1>
                 </div>
                 <div className="flex items-center pl-10">
@@ -109,6 +144,7 @@ const DiaryPlayground = () => {
                 <FormItem>
                   <FormControl>
                     <Input
+                      id="titleText"
                       type="text"
                       {...field}
                       placeholder="Your diary title..."
@@ -120,14 +156,62 @@ const DiaryPlayground = () => {
               )}
             />
             <Divider className="mt-4 mb-8" />
-            <div className="bg-colour-lavender rounded-lg flex items-center mb-8">
+            <div className="grid grid-cols-7 gap-4">
+              <div className="col-span-5">
+                <FormField
+                  control={form.control}
+                  name="content"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormControl>
+                        <Textarea
+                          type="text"
+                          {...field}
+                          variant="underlined"
+                          size="lg"
+                          placeholder="What's on your mind..."
+                          height={300}
+                          minRows={12}
+                          maxRows={100}
+                          className="shadow-none text-gray-500"
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
+              <div className="col-span-2">
+                <h1 className="text-xl">Select your tags</h1>
+                <div className="flex flex-wrap gap-2">
+                  {tags.map((tag) => (
+                    <Button
+                      key={tag.tagId}
+                      onClick={() => toggleTag(tag.tagId)}
+                      variant="bordered"
+                      className={`px-3 py-1 rounded-full text-white font-semibold ${
+                        selectedTags.includes(tag.tagId)
+                          ? "bg-colour-indigo"
+                          : "bg-white text-gray-400"
+                      }`}
+                    >
+                      <img src={tag.iconUrl} className="h-8 w-8" />
+                      {tag.name}
+                    </Button>
+                  ))}
+                </div>
+              </div>
+            </div>
+            <div className="bg-colour-blue rounded-xl flex items-center my-8 pl-4">
+              <CircleCheck className="h-7 w-7" />
               <FormField
                 control={form.control}
                 name="mood"
                 render={({ field }) => (
-                  <FormItem className="rounded-sm border-l-4 border-l-colour-indigo">
+                  <FormItem>
                     <FormControl>
                       <Input
+                        id="moodText"
                         type="text"
                         {...field}
                         placeholder="What's your mood today..."
@@ -139,29 +223,7 @@ const DiaryPlayground = () => {
                 )}
               />
             </div>
-            <FormField
-              control={form.control}
-              name="content"
-              render={({ field }) => (
-                <FormItem>
-                  <FormControl>
-                    <Textarea
-                      type="text"
-                      {...field}
-                      variant="underlined"
-                      size="lg"
-                      placeholder="What's on your mind..."
-                      height={300}
-                      minRows={12}
-                      maxRows={100}
-                      className="shadow-none text-gray-500"
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <div className="p-4 flex gap-4 flex-wrap">
+            <div className=" flex gap-4 flex-wrap">
               {/* Display uploaded files with delete button */}
               {uploadedFiles.map((file, index) => (
                 <div key={index} className="relative w-32 h-32">

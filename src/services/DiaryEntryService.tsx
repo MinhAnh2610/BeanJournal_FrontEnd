@@ -8,3 +8,23 @@ export const GetDiaryEntriesAPI = async () => {
   console.log(data);
   return data;
 };
+
+export const PostDiaryEntryAPI = async (
+  title: string,
+  content: string,
+  mood: string,
+  createdAt: Date,
+  tags: number[]
+) => {
+  console.log(title, content, mood, createdAt, tags);
+  
+  const data = await axiosInstance.post<DiaryEntryGet>("/diaryEntry", {
+    title,
+    content,
+    mood,
+    createdAt,
+    tags,
+  });
+  console.log(data);
+  return data;
+};

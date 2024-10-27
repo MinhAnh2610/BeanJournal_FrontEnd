@@ -11,3 +11,11 @@ export type DiaryEntryGet = {
     tags: TagGet[];
     mediaAttachments: MediaAttachmentGet[];
 };
+
+export type DiaryEntryPost = {
+    title: string;
+    content: string;
+    mood: string;
+    createdAt: string;
+    tags: number[];
+}

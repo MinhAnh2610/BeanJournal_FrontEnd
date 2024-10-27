@@ -1,5 +1,5 @@
 export type TagGet = {
-    id: number,
+    tagId: number,
     name: string,
     imagePublicId: string,
     iconPublicId: string,
