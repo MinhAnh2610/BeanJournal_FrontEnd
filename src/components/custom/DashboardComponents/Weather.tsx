@@ -1,17 +1,18 @@
 import forest from "../../../assets/forest 2.png";
 import { useDashboard } from "@/context/useDashboard";
-import { getWeatherAPI } from "@/services/WeatherService";
+// import { getWeatherAPI } from "@/services/WeatherService";
 import { Button, Card, Image, Skeleton } from "@nextui-org/react";
 import { BookOpenText, Clock3, Plus } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { toast } from "sonner";
+// import { toast } from "sonner";
 
 const Weather = () => {
   const navigate = useNavigate();
   const { diaries, addDiary } = useDashboard();
+  const loading = true;
 
-  const [weather, setWeather] = useState("");
+  // const [weather, setWeather] = useState("");
   // const [temperature, setTemperature] = useState(0);
   // const [city, setCity] = useState("");
   // const [desc, setDesc] = useState("");
@@ -19,28 +20,28 @@ const Weather = () => {
   // const [humidity, setHumidity] = useState("");
   // const [visibility, setVisibility] = useState(0);
   // const [windspeed, setWineSpeed] = useState("");
-  const [wicon, setWicon] = useState("");
-  const [loading, setLoading] = useState(true);
+  // const [wicon, setWicon] = useState("");
+  // const [loading, setLoading] = useState(true);
 
-  const getWeather = async () => {
-    await getWeatherAPI(10.7838, 106.704)
-      .then((res) => {
-        if (res?.data) {
-          setLoading(false);
-          setWeather(res.data.weather[0].main);
-          // setTemperature(Math.round(res.data.main.temp - 273.15));
-          // setDesc(res.data.weather[0].description);
-          // setName(res.data.name);
-          // setHumidity(res.data.main.humidity);
-          // setVisibility(res.data.visibility / 1000);
-          // setWineSpeed(res.data.wind.speed);
-          setWicon(res.data.weather[0].icon);
-        }
-      })
-      .catch((err) => {
-        toast.error(err);
-      });
-  };
+  // const getWeather = async () => {
+  //   await getWeatherAPI(10.7838, 106.704)
+  //     .then((res) => {
+  //       if (res?.data) {
+  //         setLoading(false);
+  //         setWeather(res.data.weather[0].main);
+  //         // setTemperature(Math.round(res.data.main.temp - 273.15));
+  //         // setDesc(res.data.weather[0].description);
+  //         // setName(res.data.name);
+  //         // setHumidity(res.data.main.humidity);
+  //         // setVisibility(res.data.visibility / 1000);
+  //         // setWineSpeed(res.data.wind.speed);
+  //         setWicon(res.data.weather[0].icon);
+  //       }
+  //     })
+  //     .catch((err) => {
+  //       toast.error(err);
+  //     });
+  // };
 
   const handleAdd = async () => {
     addDiary("title", "content", "mood", []);
@@ -53,7 +54,7 @@ const Weather = () => {
   };
 
   useEffect(() => {
-    getWeather();
+    // getWeather();
   }, []);
 
   return (
@@ -90,13 +91,13 @@ const Weather = () => {
             <p className="pl-2 font-semibold text-large">
               What a great day to learn something new
             </p>
-            <h1 className="pl-2 text-4xl">
+            {/* <h1 className="pl-2 text-4xl">
               Today is a{" "}
               <span className="border-b-4 border-colour-indigo">
                 {weather.toLocaleLowerCase()}
               </span>{" "}
               day {wicon}
-            </h1>
+            </h1> */}
           </div>
           <div className="flex justify-between items-end">
             <div>
