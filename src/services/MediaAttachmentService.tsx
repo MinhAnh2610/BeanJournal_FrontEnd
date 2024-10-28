@@ -8,3 +8,17 @@ export const GetUserMediaAttachmentsAPI = async () => {
   console.log(data);
   return data;
 };
+
+export const UpdateMediaAttachmentsAPI = async (
+  entryId: number,
+  mediaAttachmentList: File[]
+) => {
+  const data = await axiosInstance.put<MediaAttachmentGet[]>(
+    `/mediaAttachment/${entryId}/media`,
+    {
+      mediaAttachmentList,
+    }
+  );
+  console.log(data);
+  return data;
+};

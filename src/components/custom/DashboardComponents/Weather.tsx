@@ -4,20 +4,21 @@ import { getWeatherAPI } from "@/services/WeatherService";
 import { Button, Card, Image, Skeleton } from "@nextui-org/react";
 import { BookOpenText, Clock3, Plus } from "lucide-react";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 
 const Weather = () => {
-  const { diaries } = useDashboard();
+  const navigate = useNavigate();
+  const { diaries, addDiary } = useDashboard();
 
   const [weather, setWeather] = useState("");
-  const [temperature, setTemperature] = useState(0);
-  const [city, setCity] = useState("");
-  const [desc, setDesc] = useState("");
-  const [name, setName] = useState("");
-  const [humidity, setHumidity] = useState("");
-  const [visibility, setVisibility] = useState(0);
-  const [windspeed, setWineSpeed] = useState("");
+  // const [temperature, setTemperature] = useState(0);
+  // const [city, setCity] = useState("");
+  // const [desc, setDesc] = useState("");
+  // const [name, setName] = useState("");
+  // const [humidity, setHumidity] = useState("");
+  // const [visibility, setVisibility] = useState(0);
+  // const [windspeed, setWineSpeed] = useState("");
   const [wicon, setWicon] = useState("");
   const [loading, setLoading] = useState(true);
 
@@ -27,18 +28,28 @@ const Weather = () => {
         if (res?.data) {
           setLoading(false);
           setWeather(res.data.weather[0].main);
-          setTemperature(Math.round(res.data.main.temp - 273.15));
-          setDesc(res.data.weather[0].description);
-          setName(res.data.name);
-          setHumidity(res.data.main.humidity);
-          setVisibility(res.data.visibility / 1000);
-          setWineSpeed(res.data.wind.speed);
+          // setTemperature(Math.round(res.data.main.temp - 273.15));
+          // setDesc(res.data.weather[0].description);
+          // setName(res.data.name);
+          // setHumidity(res.data.main.humidity);
+          // setVisibility(res.data.visibility / 1000);
+          // setWineSpeed(res.data.wind.speed);
           setWicon(res.data.weather[0].icon);
         }
       })
       .catch((err) => {
         toast.error(err);
       });
+  };
+
+  const handleAdd = async () => {
+    addDiary("title", "content", "mood", []);
+    navigate(
+      `/dashboard/diary/${
+        diaries.sort((a, b) => a.entryId - b.entryId)[diaries.length - 1]
+          .entryId
+      }`
+    );
   };
 
   useEffect(() => {
@@ -111,10 +122,9 @@ const Weather = () => {
               <Button
                 isIconOnly
                 className="w-16 h-16 border-colour-indigo border-2 bg-colour-lavender"
+                onClick={handleAdd}
               >
-                <Link to="diary">
-                  <Plus className="h-10 w-10 font-light text-colour-indigo" />
-                </Link>
+                <Plus className="h-10 w-10 font-light text-colour-indigo" />
               </Button>
             </div>
           </div>

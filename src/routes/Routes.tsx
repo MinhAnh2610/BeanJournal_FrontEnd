@@ -31,7 +31,7 @@ const RouterComponent = () => {
           ),
           children: [
             { path: "", element: <UserDashboard /> },
-            { path: "diary", element: <DiaryEntryPage /> },
+            { path: "diary/:id", element: <DiaryEntryPage /> },
           ],
         },
         // Catch-all route for 404 errors

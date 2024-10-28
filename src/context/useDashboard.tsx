@@ -1,8 +1,10 @@
 import { DiaryEntryGet } from "@/models/DiaryEntry";
 import { TagGet } from "@/models/Tag";
 import {
+  DeleteDiaryEntryByIdAPI,
   GetDiaryEntriesAPI,
   PostDiaryEntryAPI,
+  PutDiaryEntryByIdAPI,
 } from "@/services/DiaryEntryService";
 import { getTagsAPI } from "@/services/TagService";
 import React, { createContext, useLayoutEffect, useState } from "react";
@@ -17,6 +19,14 @@ type DashboardContextType = {
     mood: string,
     tags: number[]
   ) => void;
+  updateDiaryById: (
+    id: number,
+    title: string,
+    content: string,
+    mood: string,
+    tags: number[]
+  ) => void;
+  deleteDiaryById: (id: number) => void;
 };
 
 type Props = {
@@ -53,6 +63,30 @@ export const DashboardProvider = ({ children }: Props) => {
       });
   };
 
+  const updateDiaryById = async (
+    id: number,
+    title: string,
+    content: string,
+    mood: string,
+    tags: number[]
+  ) => {
+    const data = await PutDiaryEntryByIdAPI(
+      id,
+      title,
+      content,
+      mood,
+      new Date(),
+      tags
+    );
+    await getDiaries();
+    return data;
+  };
+
+  const deleteDiaryById = async (id: number) => {
+    await DeleteDiaryEntryByIdAPI(id);
+    await getDiaries();
+  };
+
   const getDiaries = async () => {
     await GetDiaryEntriesAPI()
       .then((res) => {
@@ -71,7 +105,15 @@ export const DashboardProvider = ({ children }: Props) => {
   }, []);
 
   return (
-    <DashboardContext.Provider value={{ tags, diaries, addDiary }}>
+    <DashboardContext.Provider
+      value={{
+        tags,
+        diaries,
+        addDiary,
+        updateDiaryById,
+        deleteDiaryById,
+      }}
+    >
       {children}
     </DashboardContext.Provider>
   );

@@ -7,8 +7,10 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useDashboard } from "@/context/useDashboard";
+import { DiaryEntryGet } from "@/models/DiaryEntry";
+import { GetDiaryEntryByIdAPI } from "@/services/DiaryEntryService";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Button, Divider, Textarea } from "@nextui-org/react";
+import { Button, Divider, Textarea, Image } from "@nextui-org/react";
 import {
   Check,
   CircleCheck,
@@ -18,9 +20,12 @@ import {
   Trash,
   Trash2,
 } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import { useNavigate, useParams } from "react-router";
 import { z } from "zod";
+import { toast } from "sonner";
+// import { UpdateMediaAttachmentsAPI } from "@/services/MediaAttachmentService";
 
 interface UploadedFile {
   file: File;
@@ -34,7 +39,13 @@ const formSchema = z.object({
 });
 
 const DiaryPlayground = () => {
-  const { tags, addDiary } = useDashboard();
+  const { tags, diaries, updateDiaryById, deleteDiaryById } = useDashboard();
+  const { id } = useParams();
+  const [diary, setDiary] = useState<DiaryEntryGet>();
+  const navigate = useNavigate();
+
+  const [uploadedFiles, setUploadedFiles] = useState<UploadedFile[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   // State to track selected tags by their IDs
   const [selectedTags, setSelectedTags] = useState<number[]>([]);
@@ -48,8 +59,6 @@ const DiaryPlayground = () => {
           : [...prevSelectedTags, tagId] // Select if not selected
     );
   };
-
-  const [uploadedFiles, setUploadedFiles] = useState<UploadedFile[]>([]);
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files;
@@ -66,31 +75,70 @@ const DiaryPlayground = () => {
     setUploadedFiles((prevFiles) => prevFiles.filter((_, i) => i !== index));
   };
 
-  const [isLoading, setIsLoading] = useState(false);
+  const DeleteDiary = async () => {
+    deleteDiaryById(id ? +id : 0);
+    navigate(
+      `/dashboard/diary/${
+        diaries.sort((a, b) => a.entryId - b.entryId)[diaries.length - 2]
+          .entryId
+      }`
+    );
+  };
+
+  const GetDiary = async () => {
+    await GetDiaryEntryByIdAPI(id ? +id : 0)
+      .then((res) => {
+        if (res?.data) {
+          setDiary(res?.data);
+          setValue("title", res.data.title);
+          setValue("content", res.data.content);
+          setValue("mood", res.data.mood);
+
+          const tagIds = res.data.tags.map((tag) => tag.tagId);
+          setSelectedTags(tagIds);
+        }
+      })
+      .catch((err) => {
+        toast.error(err);
+      });
+  };
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      title: "",
-      content: "",
-      mood: "",
+      title: diary?.title || "",
+      content: diary?.content || "",
+      mood: diary?.mood || "",
     },
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     setIsLoading(true);
     try {
-      addDiary(
+      updateDiaryById(
+        id ? +id : 0,
         values.title,
         values.content,
         values.mood,
         selectedTags
       );
+      console.log(uploadedFiles.map((x) => x.file));
+
+      // await UpdateMediaAttachmentsAPI(
+      //   id ? +id : 0,
+      //   uploadedFiles.map((x) => x.file)
+      // ).catch((err) => toast.error(err));
     } catch (error) {
     } finally {
       setIsLoading(false);
     }
   }
+
+  const { setValue } = form;
+
+  useEffect(() => {
+    GetDiary();
+  }, [id, isLoading]);
 
   return (
     <div className="p-4">
@@ -102,15 +150,7 @@ const DiaryPlayground = () => {
                 <div className="pb-4">
                   <h1 className="flex items-center font-semibold text-3xl text-purple-950">
                     <Hash className="w-6 h-6 text-gray-500 mr-4" />{" "}
-                    {
-                      (document.getElementById("titleText") as HTMLInputElement)
-                        ?.value
-                    }{" "}
-                    /{" "}
-                    {
-                      (document.getElementById("moodText") as HTMLInputElement)
-                        ?.value
-                    }
+                    {diary?.title} / {diary?.mood}
                   </h1>
                 </div>
                 <div className="flex items-center pl-10">
@@ -118,7 +158,8 @@ const DiaryPlayground = () => {
                     <Clock className="w-6 h-6 text-gray-500" /> Latest update
                   </p>
                   <p className="text-lg font-semibold text-purple-950 pl-24">
-                    Aug 08 2024
+                    {diary?.updatedAt &&
+                      new Date(diary?.updatedAt).toDateString()}
                   </p>
                 </div>
               </div>
@@ -131,7 +172,19 @@ const DiaryPlayground = () => {
                 >
                   <Check className="w-8 h-8 text-green-500" />
                 </Button>
-                <Button variant="light" isIconOnly>
+                <Button
+                  variant="light"
+                  isIconOnly
+                  onClick={() => {
+                    if (
+                      window.confirm(
+                        "Are you sure you want to delete this diary?"
+                      )
+                    ) {
+                      DeleteDiary();
+                    }
+                  }}
+                >
                   <Trash2 className="w-8 h-8 text-red-500" />
                 </Button>
               </div>
@@ -145,10 +198,9 @@ const DiaryPlayground = () => {
                   <FormControl>
                     <Input
                       id="titleText"
-                      type="text"
-                      {...field}
                       placeholder="Your diary title..."
-                      className="bg-transparent border-none focus:border-none text-4xl font-bold shadow-none h-20 text-gray-800"
+                      className="bg-transparent border-none focus:border-none h-20 text-4xl font-bold shadow-none text-gray-800"
+                      {...field}
                     />
                   </FormControl>
                   <FormMessage />
@@ -166,13 +218,13 @@ const DiaryPlayground = () => {
                       <FormControl>
                         <Textarea
                           type="text"
-                          {...field}
                           variant="underlined"
                           size="lg"
                           placeholder="What's on your mind..."
                           height={300}
                           minRows={12}
                           maxRows={100}
+                          {...field}
                           className="shadow-none text-gray-500"
                         />
                       </FormControl>
@@ -213,6 +265,7 @@ const DiaryPlayground = () => {
                       <Input
                         id="moodText"
                         type="text"
+                        defaultValue={diary?.mood}
                         {...field}
                         placeholder="What's your mood today..."
                         className="h-16 bg-transparent border-none focus:border-none text-2xl font-bold shadow-none text-gray-800"
@@ -223,6 +276,21 @@ const DiaryPlayground = () => {
                 )}
               />
             </div>
+            <Divider />
+            <div className="flex gap-4">
+              {diary?.mediaAttachments.map((media) => (
+                <Image
+                  key={media.mediaId}
+                  isBlurred
+                  width={200}
+                  src={media.filePath}
+                  alt="media"
+                  className="my-8"
+                />
+              ))}
+            </div>
+            <Divider />
+            <h1 className="text-xl my-2">Upload images here</h1>
             <div className=" flex gap-4 flex-wrap">
               {/* Display uploaded files with delete button */}
               {uploadedFiles.map((file, index) => (

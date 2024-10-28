@@ -55,7 +55,7 @@ const divVariants = {
 
 const Sidebar = () => {
   const { user } = useAuth();
-  const { tags } = useDashboard();
+  const { tags, diaries } = useDashboard();
 
   const [isOpen, setIsOpen] = useState(true);
   const location = useLocation();
@@ -112,7 +112,15 @@ const Sidebar = () => {
         </SidebarLink>
         <SidebarLink
           name="Diaries"
-          path="diary"
+          path={`${
+            diaries.length > 0
+              ? `diary/${
+                  diaries.sort((a, b) => a.entryId - b.entryId)[
+                    diaries.length - 1
+                  ].entryId
+                }`
+              : "#"
+          }`}
           active={location.pathname.includes("diary")}
         >
           <BookHeart className="stroke-inherit stroke-[0.75] min-w-8 w-8" />
